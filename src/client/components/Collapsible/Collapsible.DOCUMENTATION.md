@@ -1,13 +1,16 @@
 ### Synopsis
 
-Collapsible is 
-*Write here a short introduction and/or overview that explains **what** component is.*
+Collapsible is component which
 
 ### Props Reference
 
 | Name                           | Type                    | Description                                                 |
 | ------------------------------ | :---------------------- | ----------------------------------------------------------- |
-| demoProp                       | string                  | Write a description of the property                         |
+| className                      | string                  | Default behavior                                            |
+| children                       | node                    | Default behavior                                            |
+| collapsed                      | bool                    |                                                             |
+| title                          | string                  | Title displayed in header                                   |
+| onToggle                       | func                    | Callback `(e) => {}` fires on press collapse toggle button   |
 
 ### Code Example
 

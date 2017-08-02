@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import Types from 'prop-types';
 import './Collapsible.less';
 import { Button } from '@opuscapita/react-buttons';
@@ -10,7 +10,7 @@ import hideSVG from '!raw-loader!!../../../../external_modules/oc-common-ui-indi
 
 const motionPreset = { stiffness: 140, damping: 20};
 
-class CollapsibleChildren extends PureComponent {
+class CollapsibleChildren extends Component {
   onSize(size) {
     this.props.onSize();
   }
@@ -38,20 +38,33 @@ const defaultProps = {
 };
 
 export default
-class Collapsible extends PureComponent {
+class Collapsible extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      childHeight: 0
+      childHeight: 0,
+      inMotion: false
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(this.props.collapsed !== nextProps.collapsed) {
+      this.setState({ inMotion: true });
+    }
+  }
+
   handleChildHeightChange = (height) => {
-    this.setState({ childHeight: height });
+    this.setState({
+      childHeight: height
+    });
   }
 
   handleHeaderButtonClick = (e) => {
     this.props.onToggle(e);
+  }
+
+  handleMotionRest = () => {
+    this.setState({ inMotion: false });
   }
 
   render() {
@@ -61,29 +74,35 @@ class Collapsible extends PureComponent {
       title
     } = this.props;
 
-    let { childHeight } = this.state;
-
+    let { childHeight, inMotion } = this.state;
     let childrenContent = (
       <Motion
-        defaultStyle={{ x: collapsed ? 0 : null, y: collapsed ? 0 : 1 }}
+        defaultStyle={{ x: 0, y: collapsed ? 0 : 1 }}
         style={{
           x: collapsed ? spring(childHeight, motionPreset) : spring(0, motionPreset),
           y: collapsed ? spring(0, motionPreset) : spring(1, motionPreset)
         }}
-      >
-        {style => (
-          <div
-            className={`oc-collapsible__children`}
-            style={{
-              marginTop: `-${style.x === null ? '0' : style.x}px`,
-              opacity: style.y
-            }}
-          >
-            <CollapsibleChildren onSize={size => this.handleChildHeightChange(size.height)}>
-              {this.props.children}
-            </CollapsibleChildren>
-          </div>
-        )}
+        onRest={this.handleMotionRest}
+        >
+        {style => {
+          let finishedMotionMarginTop = collapsed ? childHeight : 0;
+          let marginTop = inMotion ? style.x : finishedMotionMarginTop;
+          let position = childHeight ? 'relative' : 'absolute';
+
+          return (
+            <div
+              className={`oc-collapsible__children`}
+              style={{
+                marginTop: `-${marginTop}px`,
+                opacity: style.y,
+                position: `${position}`
+              }}
+              >
+              <CollapsibleChildren onSize={size => this.handleChildHeightChange(size.height)}>
+                {this.props.children}
+              </CollapsibleChildren>
+            </div>
+          )}}
       </Motion>
     );
 
