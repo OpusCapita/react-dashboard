@@ -4,11 +4,19 @@ import AttachementsList from '../AttachementsList';
 import Collapsible from '../Collapsible';
 import ReactGridLayout, { WidthProvider } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
+import demoData from './demo-data';
 
 const GridLayout = WidthProvider(ReactGridLayout);
 
 const propTypes = {};
 const defaultProps = {};
+const layout = [
+  { i: '1', x: 0, y: 0, h: 3, w: 3 },
+  { i: '2', x: 3, y: 3, h: 3, w: 3 },
+  { i: '3', x: 6, y: 6, h: 3, w: 3 },
+  { i: '4', x: 9, y: 9, h: 3, w: 3 },
+  { i: '5', x: 12, y: 12, h: 3, w: 3 },
+];
 
 export default
 class DemoDashboard extends Component {
@@ -44,10 +52,11 @@ class DemoDashboard extends Component {
         <GridLayout
           isDraggable={true}
           isResizable={false}
-          layout={[]}
-          rowHeight={300}
-          cols={4}
-          >
+          layout={layout}
+          margin={[15, 15]}
+          rowHeight={15}
+          cols={6}
+        >
           <div key="1" className={`oc-demo-dashboard__widget`}>
             <Collapsible
               title="Attachements 1"
@@ -55,23 +64,8 @@ class DemoDashboard extends Component {
               onToggle={() => this.handleWidgetToggle('attachements-1')}
               >
               <AttachementsList
-                attachements={[
-                  { type: 'pdf', title: 'Invoice image', 'href': 'https://goo.gl/9FgSPD' },
-                  { title: 'Some attachement 1', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Some attachement 2', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Broken attachement' },
-                  { title: 'Some attachement 3', 'href': 'https://goo.gl/9FgSPD' },
-                  { title: 'Some attachement 4', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'png', title: 'Some attachement 5', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Invoice image', 'href': 'https://goo.gl/9FgSPD' },
-                  { title: 'Some attachement 1', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Some attachement 2', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Broken attachement' },
-                  { title: 'Some attachement 3', 'href': 'https://goo.gl/9FgSPD' },
-                  { title: 'Some attachement 4', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'png', title: 'Some attachement 5', 'href': 'https://goo.gl/9FgSPD' }
-                ]}
-                />
+                attachements={demoData.attachements}
+              />
             </Collapsible>
           </div>
 
@@ -81,25 +75,10 @@ class DemoDashboard extends Component {
               collapsed={collapsedWidgets.indexOf('attachements-2') !== -1}
               onToggle={() => this.handleWidgetToggle('attachements-2')}
               className={`oc-demo-dashboard__widget`}
-              >
+            >
               <AttachementsList
-                attachements={[
-                  { type: 'pdf', title: 'Invoice image', 'href': 'https://goo.gl/9FgSPD' },
-                  { title: 'Some attachement 1', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Some attachement 2', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Broken attachement' },
-                  { title: 'Some attachement 3', 'href': 'https://goo.gl/9FgSPD' },
-                  { title: 'Some attachement 4', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'png', title: 'Some attachement 5', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Invoice image', 'href': 'https://goo.gl/9FgSPD' },
-                  { title: 'Some attachement 1', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Some attachement 2', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Broken attachement' },
-                  { title: 'Some attachement 3', 'href': 'https://goo.gl/9FgSPD' },
-                  { title: 'Some attachement 4', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'png', title: 'Some attachement 5', 'href': 'https://goo.gl/9FgSPD' }
-                ]}
-                />
+                attachements={demoData.attachements}
+              />
             </Collapsible>
           </div>
 
@@ -111,23 +90,8 @@ class DemoDashboard extends Component {
               className={`oc-demo-dashboard__widget`}
               >
               <AttachementsList
-                attachements={[
-                  { type: 'pdf', title: 'Invoice image', 'href': 'https://goo.gl/9FgSPD' },
-                  { title: 'Some attachement 1', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Some attachement 2', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Broken attachement' },
-                  { title: 'Some attachement 3', 'href': 'https://goo.gl/9FgSPD' },
-                  { title: 'Some attachement 4', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'png', title: 'Some attachement 5', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Invoice image', 'href': 'https://goo.gl/9FgSPD' },
-                  { title: 'Some attachement 1', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Some attachement 2', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Broken attachement' },
-                  { title: 'Some attachement 3', 'href': 'https://goo.gl/9FgSPD' },
-                  { title: 'Some attachement 4', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'png', title: 'Some attachement 5', 'href': 'https://goo.gl/9FgSPD' }
-                ]}
-                />
+                attachements={demoData.attachements}
+              />
             </Collapsible>
           </div>
 
@@ -139,23 +103,21 @@ class DemoDashboard extends Component {
               className={`oc-demo-dashboard__widget`}
               >
               <AttachementsList
-                attachements={[
-                  { type: 'pdf', title: 'Invoice image', 'href': 'https://goo.gl/9FgSPD' },
-                  { title: 'Some attachement 1', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Some attachement 2', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Broken attachement' },
-                  { title: 'Some attachement 3', 'href': 'https://goo.gl/9FgSPD' },
-                  { title: 'Some attachement 4', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'png', title: 'Some attachement 5', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Invoice image', 'href': 'https://goo.gl/9FgSPD' },
-                  { title: 'Some attachement 1', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Some attachement 2', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'pdf', title: 'Broken attachement' },
-                  { title: 'Some attachement 3', 'href': 'https://goo.gl/9FgSPD' },
-                  { title: 'Some attachement 4', 'href': 'https://goo.gl/9FgSPD' },
-                  { type: 'png', title: 'Some attachement 5', 'href': 'https://goo.gl/9FgSPD' }
-                ]}
-                />
+                attachements={demoData.attachements}
+              />
+            </Collapsible>
+          </div>
+
+          <div key="5" className={`oc-demo-dashboard__widget`}>
+            <Collapsible
+              title="Attachements 5"
+              collapsed={collapsedWidgets.indexOf('attachements-5') !== -1}
+              onToggle={() => this.handleWidgetToggle('attachements-5')}
+              className={`oc-demo-dashboard__widget`}
+              >
+              <AttachementsList
+                attachements={demoData.attachements}
+              />
             </Collapsible>
           </div>
         </GridLayout>
