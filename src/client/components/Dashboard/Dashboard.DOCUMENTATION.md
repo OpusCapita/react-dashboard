@@ -1,6 +1,6 @@
 ### Synopsis
 
-DemoDashboard is 
+Dashboard is 
 *Write here a short introduction and/or overview that explains **what** component is.*
 
 ### Props Reference
@@ -12,12 +12,12 @@ DemoDashboard is
 ### Code Example
 
 ```
-<DemoDashboard />
+<Dashboard />
 ```
 
 ### Component Name
 
-DemoDashboard
+Dashboard
 
 ### License
 

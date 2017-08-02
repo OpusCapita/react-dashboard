@@ -8,12 +8,19 @@ import { showroomScopeDecorator } from '@opuscapita/react-showroom-client';
 import { ThemeProvider } from '@opuscapita/react-theming';
 import theme from '../../theme';
 
+
 @showroomScopeDecorator
 export default
-class DemoDashboardScope extends Component {
+class DashboardWidgetScope extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      collapsed: false
+    };
+  }
+
+  toggleCollapse() {
+    this.setState({ collapsed: !this.state.collapsed });
   }
 
   render() {
@@ -27,9 +34,9 @@ class DemoDashboardScope extends Component {
   }
 }
 
-DemoDashboardScope.contextTypes = {
+DashboardWidgetScope.contextTypes = {
   i18n: PropTypes.object
 };
-DemoDashboardScope.childContextTypes = {
+DashboardWidgetScope.childContextTypes = {
   i18n: PropTypes.object
 };

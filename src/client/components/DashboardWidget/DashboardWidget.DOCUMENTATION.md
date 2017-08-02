@@ -1,6 +1,6 @@
 ### Synopsis
 
-Collapsible is component which
+DashboardWidget is component which
 
 ### Props Reference
 
@@ -16,7 +16,7 @@ Collapsible is component which
 
 ```
 <div style={{ maxHeight: '300px', display: 'flex' }}>
-  <Collapsible
+  <DashboardWidget
     title="Approval status"
     collapsed={_scope.state.collapsed}
     onToggle={_scope.toggleCollapse.bind(_scope)}
@@ -63,13 +63,13 @@ Collapsible is component which
         <li>Item 3</li>
       </ul>
     </div>
-  </Collapsible>
+  </DashboardWidget>
 </div>
 ```
 
 ### Component Name
 
-Collapsible
+DashboardWidget
 
 ### License
 

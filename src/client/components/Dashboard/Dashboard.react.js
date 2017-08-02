@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import './DemoDashboard.less';
+import './Dashboard.less';
 import AttachementsList from '../AttachementsList';
-import Collapsible from '../Collapsible';
+import DashboardWidget from '../DashboardWidget';
 import ReactGridLayout, { WidthProvider } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import demoData from './demo-data';
@@ -19,7 +19,7 @@ const layout = [
 ];
 
 export default
-class DemoDashboard extends Component {
+class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,7 +48,7 @@ class DemoDashboard extends Component {
     } = this.state;
 
     return (
-      <div className={`oc-demo-dashboard`}>
+      <div className={`oc-dashboard`}>
         <GridLayout
           isDraggable={true}
           isResizable={false}
@@ -57,8 +57,8 @@ class DemoDashboard extends Component {
           rowHeight={15}
           cols={6}
         >
-          <div key="1" className={`oc-demo-dashboard__widget`}>
-            <Collapsible
+          <div key="1" className={`oc-dashboard__widget`}>
+            <DashboardWidget
               title="Attachements 1"
               collapsed={collapsedWidgets.indexOf('attachements-1') !== -1}
               onToggle={() => this.handleWidgetToggle('attachements-1')}
@@ -66,59 +66,59 @@ class DemoDashboard extends Component {
               <AttachementsList
                 attachements={demoData.attachements}
               />
-            </Collapsible>
+            </DashboardWidget>
           </div>
 
-          <div key="2" className={`oc-demo-dashboard__widget`}>
-            <Collapsible
+          <div key="2" className={`oc-dashboard__widget`}>
+            <DashboardWidget
               title="Attachements 2"
               collapsed={collapsedWidgets.indexOf('attachements-2') !== -1}
               onToggle={() => this.handleWidgetToggle('attachements-2')}
-              className={`oc-demo-dashboard__widget`}
+              className={`oc-dashboard__widget`}
             >
               <AttachementsList
                 attachements={demoData.attachements}
               />
-            </Collapsible>
+            </DashboardWidget>
           </div>
 
-          <div key="3" className={`oc-demo-dashboard__widget`}>
-            <Collapsible
+          <div key="3" className={`oc-dashboard__widget`}>
+            <DashboardWidget
               title="Attachements 3"
               collapsed={collapsedWidgets.indexOf('attachements-3') !== -1}
               onToggle={() => this.handleWidgetToggle('attachements-3')}
-              className={`oc-demo-dashboard__widget`}
+              className={`oc-dashboard__widget`}
               >
               <AttachementsList
                 attachements={demoData.attachements}
               />
-            </Collapsible>
+            </DashboardWidget>
           </div>
 
-          <div key="4" className={`oc-demo-dashboard__widget`}>
-            <Collapsible
+          <div key="4" className={`oc-dashboard__widget`}>
+            <DashboardWidget
               title="Attachements 4"
               collapsed={collapsedWidgets.indexOf('attachements-4') !== -1}
               onToggle={() => this.handleWidgetToggle('attachements-4')}
-              className={`oc-demo-dashboard__widget`}
+              className={`oc-dashboard__widget`}
               >
               <AttachementsList
                 attachements={demoData.attachements}
               />
-            </Collapsible>
+            </DashboardWidget>
           </div>
 
-          <div key="5" className={`oc-demo-dashboard__widget`}>
-            <Collapsible
+          <div key="5" className={`oc-dashboard__widget`}>
+            <DashboardWidget
               title="Attachements 5"
               collapsed={collapsedWidgets.indexOf('attachements-5') !== -1}
               onToggle={() => this.handleWidgetToggle('attachements-5')}
-              className={`oc-demo-dashboard__widget`}
+              className={`oc-dashboard__widget`}
               >
               <AttachementsList
                 attachements={demoData.attachements}
               />
-            </Collapsible>
+            </DashboardWidget>
           </div>
         </GridLayout>
       </div>
@@ -126,5 +126,5 @@ class DemoDashboard extends Component {
   }
 }
 
-DemoDashboard.propTypes = propTypes;
-DemoDashboard.defaultProps = defaultProps;
+Dashboard.propTypes = propTypes;
+Dashboard.defaultProps = defaultProps;

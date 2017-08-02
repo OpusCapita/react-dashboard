@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Types from 'prop-types';
-import './Collapsible.less';
+import './DashboardWidget.less';
 import { Button } from '@opuscapita/react-buttons';
 import { Motion, spring, presets } from 'react-motion';
 import sizeMe from 'react-sizeme';
@@ -10,7 +10,7 @@ import hideSVG from '!raw-loader!!../../../../external_modules/oc-common-ui-indi
 
 const motionPreset = { stiffness: 140, damping: 20 };
 
-class CollapsibleChildren extends Component {
+class DashboardWidgetChildren extends Component {
   onSize(size) {
     this.props.onSize();
   }
@@ -20,7 +20,7 @@ class CollapsibleChildren extends Component {
   }
 };
 
-CollapsibleChildren = sizeMe({ monitorWidth: false, monitorHeight: true, refreshRate: 128 })(CollapsibleChildren);
+DashboardWidgetChildren = sizeMe({ monitorWidth: false, monitorHeight: true, refreshRate: 128 })(DashboardWidgetChildren);
 
 const propTypes = {
   className: Types.string,
@@ -36,7 +36,7 @@ const defaultProps = {
 };
 
 export default
-class Collapsible extends Component {
+class DashboardWidget extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -96,9 +96,9 @@ class Collapsible extends Component {
                 position: `${position}`
               }}
               >
-              <CollapsibleChildren onSize={size => this.handleChildHeightChange(size.height)}>
+              <DashboardWidgetChildren onSize={size => this.handleChildHeightChange(size.height)}>
                 {this.props.children}
-              </CollapsibleChildren>
+              </DashboardWidgetChildren>
             </div>
           )}}
       </Motion>
@@ -126,5 +126,5 @@ class Collapsible extends Component {
   }
 }
 
-Collapsible.propTypes = propTypes;
-Collapsible.defaultProps = defaultProps;
+DashboardWidget.propTypes = propTypes;
+DashboardWidget.defaultProps = defaultProps;
