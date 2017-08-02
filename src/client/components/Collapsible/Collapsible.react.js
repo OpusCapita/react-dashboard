@@ -8,7 +8,7 @@ import sizeMe from 'react-sizeme';
 import showSVG from '!raw-loader!!../../../../external_modules/oc-common-ui-indicators/Plus.svg';
 import hideSVG from '!raw-loader!!../../../../external_modules/oc-common-ui-indicators/Minus.svg';
 
-const motionPreset = { stiffness: 140, damping: 20};
+const motionPreset = { stiffness: 140, damping: 20 };
 
 class CollapsibleChildren extends Component {
   onSize(size) {
@@ -16,9 +16,7 @@ class CollapsibleChildren extends Component {
   }
 
   render() {
-    return (
-      <div>{this.props.children}</div>
-    );
+    return this.props.children;
   }
 };
 

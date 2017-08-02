@@ -5,38 +5,27 @@
 
 import React, { Component, PropTypes } from 'react';
 import { showroomScopeDecorator } from '@opuscapita/react-showroom-client';
-import { ThemeProvider } from '@opuscapita/react-theming';
-import theme from '../../theme';
-
 
 @showroomScopeDecorator
 export default
-class CollapsibleScope extends Component {
+class FileTypeIconScope extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      collapsed: false
-    };
-  }
-
-  toggleCollapse() {
-    this.setState({ collapsed: !this.state.collapsed });
+    this.state = {};
   }
 
   render() {
     return (
       <div>
-        <ThemeProvider theme={theme}>
-          {this._renderChildren()}
-        </ThemeProvider>
+        {this._renderChildren()}
       </div>
     );
   }
 }
 
-CollapsibleScope.contextTypes = {
+FileTypeIconScope.contextTypes = {
   i18n: PropTypes.object
 };
-CollapsibleScope.childContextTypes = {
+FileTypeIconScope.childContextTypes = {
   i18n: PropTypes.object
 };

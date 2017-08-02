@@ -44,7 +44,7 @@
     lodash "4.17.4"
     markdown-to-ast "3.4.0"
 
-"@opuscapita/react-svg@1.0.4":
+"@opuscapita/react-svg@1.0.4", "@opuscapita/react-svg@^1.0.4":
   version "1.0.4"
   resolved "http://leon.scand:4873/@opuscapita%2freact-svg/-/react-svg-1.0.4.tgz#bbef30e290659e9649776aacaf505d320c800513"
 

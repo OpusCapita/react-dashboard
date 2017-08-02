@@ -8,19 +8,12 @@ import { showroomScopeDecorator } from '@opuscapita/react-showroom-client';
 import { ThemeProvider } from '@opuscapita/react-theming';
 import theme from '../../theme';
 
-
 @showroomScopeDecorator
 export default
-class CollapsibleScope extends Component {
+class DemoDashboardScope extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      collapsed: false
-    };
-  }
-
-  toggleCollapse() {
-    this.setState({ collapsed: !this.state.collapsed });
+    this.state = {};
   }
 
   render() {
@@ -34,9 +27,9 @@ class CollapsibleScope extends Component {
   }
 }
 
-CollapsibleScope.contextTypes = {
+DemoDashboardScope.contextTypes = {
   i18n: PropTypes.object
 };
-CollapsibleScope.childContextTypes = {
+DemoDashboardScope.childContextTypes = {
   i18n: PropTypes.object
 };
