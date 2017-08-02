@@ -1,5 +1,9 @@
 .oc-collapsible {
   border: 4px solid #eee;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  max-height: inherit;
   color: var(--text-color);
 }
 
@@ -9,6 +13,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex: 1 0 auto;
 }
 
 .oc-collapsible__children {
@@ -17,7 +22,7 @@
 
 .oc-collapsible__children-container {
   position: relative;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .oc-collapsible__header-title-container {
