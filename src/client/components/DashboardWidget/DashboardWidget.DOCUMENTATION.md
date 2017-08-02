@@ -10,7 +10,7 @@ DashboardWidget is component which
 | children                       | node                    | Default behavior                                            |
 | collapsed                      | bool                    |                                                             |
 | title                          | string                  | Title displayed in header                                   |
-| onToggle                       | func                    | Callback `(e) => {}` fires on press collapse toggle button   |
+| onCollapse                       | func                    | Callback `(e) => {}` fires on press collapse toggle button   |
 
 ### Code Example
 
@@ -19,7 +19,7 @@ DashboardWidget is component which
   <DashboardWidget
     title="Approval status"
     collapsed={_scope.state.collapsed}
-    onToggle={_scope.toggleCollapse.bind(_scope)}
+    onCollapse={_scope.toggleCollapse.bind(_scope)}
   >
     <div>
       <ul>

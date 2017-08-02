@@ -25,14 +25,16 @@ DashboardWidgetChildren = sizeMe({ monitorWidth: false, monitorHeight: true, ref
 const propTypes = {
   className: Types.string,
   collapsed: Types.bool,
+  collapsible: Types.bool,
   title: Types.string,
-  onToggle: Types.func
+  onCollapse: Types.func
 };
 const defaultProps = {
   className: '',
   collapsed: false,
+  collapsible: false,
   title: '',
-  onToggle: () => {}
+  onCollapse: () => {}
 };
 
 export default
@@ -57,8 +59,8 @@ class DashboardWidget extends Component {
     });
   }
 
-  handleHeaderButtonClick = (e) => {
-    this.props.onToggle(e);
+  handleCollapsibleButtonClick = (e) => {
+    this.props.onCollapse(e);
   }
 
   handleMotionRest = () => {
@@ -104,15 +106,19 @@ class DashboardWidget extends Component {
       </Motion>
     );
 
+    let collapsibleButton = (
+      <div className={`oc-collapsible__collapsible-button`}>
+        <Button svg={collapsed ? showSVG : hideSVG} onClick={this.handleCollapsibleButtonClick} />
+      </div>
+    );
+
     let content = (
       <div className={`oc-collapsible ${className}`}>
         <div className={`oc-collapsible__header`}>
           <div className={`oc-collapsible__header-title-container`} title={title}>
             <h5 className={`oc-collapsible__header-title-text`}>{title}</h5>
           </div>
-          <div className={`oc-collapsible__header-button`}>
-            <Button svg={collapsed ? showSVG : hideSVG} onClick={this.handleHeaderButtonClick} />
-          </div>
+          {collapsibleButton}
         </div>
         <div className={`oc-collapsible__children-container`}>
           {childrenContent}

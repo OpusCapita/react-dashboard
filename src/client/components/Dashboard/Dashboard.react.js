@@ -61,7 +61,7 @@ class Dashboard extends Component {
             <DashboardWidget
               title="Attachements 1"
               collapsed={collapsedWidgets.indexOf('attachements-1') !== -1}
-              onToggle={() => this.handleWidgetToggle('attachements-1')}
+              onCollapse={() => this.handleWidgetToggle('attachements-1')}
               >
               <AttachementsList
                 attachements={demoData.attachements}
@@ -73,7 +73,7 @@ class Dashboard extends Component {
             <DashboardWidget
               title="Attachements 2"
               collapsed={collapsedWidgets.indexOf('attachements-2') !== -1}
-              onToggle={() => this.handleWidgetToggle('attachements-2')}
+              onCollapse={() => this.handleWidgetToggle('attachements-2')}
               className={`oc-dashboard__widget`}
             >
               <AttachementsList
@@ -86,7 +86,7 @@ class Dashboard extends Component {
             <DashboardWidget
               title="Attachements 3"
               collapsed={collapsedWidgets.indexOf('attachements-3') !== -1}
-              onToggle={() => this.handleWidgetToggle('attachements-3')}
+              onCollapse={() => this.handleWidgetToggle('attachements-3')}
               className={`oc-dashboard__widget`}
               >
               <AttachementsList
@@ -99,7 +99,7 @@ class Dashboard extends Component {
             <DashboardWidget
               title="Attachements 4"
               collapsed={collapsedWidgets.indexOf('attachements-4') !== -1}
-              onToggle={() => this.handleWidgetToggle('attachements-4')}
+              onCollapse={() => this.handleWidgetToggle('attachements-4')}
               className={`oc-dashboard__widget`}
               >
               <AttachementsList
@@ -112,7 +112,7 @@ class Dashboard extends Component {
             <DashboardWidget
               title="Attachements 5"
               collapsed={collapsedWidgets.indexOf('attachements-5') !== -1}
-              onToggle={() => this.handleWidgetToggle('attachements-5')}
+              onCollapse={() => this.handleWidgetToggle('attachements-5')}
               className={`oc-dashboard__widget`}
               >
               <AttachementsList
