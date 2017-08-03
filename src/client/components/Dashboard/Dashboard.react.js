@@ -3,6 +3,7 @@ import './Dashboard.less';
 import AttachementsList from '../AttachementsList';
 import Collapsible from '../Collapsible';
 import ReactGridLayout, { WidthProvider } from 'react-grid-layout';
+import sizeMe from 'react-sizeme';
 import 'react-grid-layout/css/styles.css';
 import demoData from './demo-data';
 
@@ -18,7 +19,6 @@ const layout = [
   { i: '5', x: 12, y: 12, h: 1, w: 1 },
 ];
 
-export default
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -54,8 +54,9 @@ class Dashboard extends Component {
           isResizable={false}
           layout={layout}
           margin={[15, 15]}
-          rowHeight={44}
+          rowHeight={52}
           cols={3}
+          autosize={false}
         >
           <div key="1" className={`oc-dashboard__widget`}>
             <Collapsible
@@ -128,3 +129,5 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = propTypes;
 Dashboard.defaultProps = defaultProps;
+
+export default sizeMe({ refreshRate: 128 })(Dashboard);
