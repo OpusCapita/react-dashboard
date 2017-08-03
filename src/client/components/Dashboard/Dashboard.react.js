@@ -1,29 +1,41 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import Types from 'prop-types';
 import './Dashboard.less';
 import AttachementsList from '../AttachementsList';
 import Collapsible from '../Collapsible';
 import ReactGridLayout, { WidthProvider } from 'react-grid-layout';
+import DashboardWidget from '../DashboardWidget';
 import sizeMe from 'react-sizeme';
 import 'react-grid-layout/css/styles.css';
 import demoData from './demo-data';
 
 const GridLayout = WidthProvider(ReactGridLayout);
 
-const propTypes = {};
-const defaultProps = {};
-const layout = [
-  { i: '1', x: 0, y: 0, h: 1, w: 1 },
-  { i: '2', x: 3, y: 3, h: 1, w: 1 },
-  { i: '3', x: 6, y: 6, h: 1, w: 1 },
-  { i: '4', x: 9, y: 9, h: 1, w: 1 },
-  { i: '5', x: 12, y: 12, h: 1, w: 1 },
-];
+const propTypes = {
+  cols: Types.number,
+  rowHeight: Types.number,
+  widgetMargin: Types.arrayOf([
+    Types.number,
+    Types.number
+  ]),
+  maxWidgetHeight: Types.number,
+  children: Types.arrayOf(Types.node)
+};
+const defaultProps = {
+  cols: 12,
+  rowHeight: 52,
+  widgetMarigin: [15, 15],
+  maxWidgetHeight: 4,
+  children: []
+};
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collapsedWidgets: []
+      collapsedWidgets: [],
+      layout: [],
+      mountedWidgets: []
     };
   }
 
@@ -42,10 +54,48 @@ class Dashboard extends Component {
     }
   }
 
+  generateLayout() {
+
+  }
+
+  handleWidgetMount(options) {
+    console.log(options);
+    let mountedWidgets = this.state.mountedWidgets.concat([options]);
+    this.setState({ mountedWidgets });
+  }
+
   render() {
     let {
-      collapsedWidgets
+      cols,
+      children,
+      rowHeight,
+      widgetMargin,
+      maxWidgetHeight
+    } = this.props;
+
+    let {
+      collapsedWidgets,
+      layout,
+      mountedWidgets
     } = this.state;
+
+    console.log(mountedWidgets);
+
+    let widgets = children.map((widget, i) => {
+      let widget = {
+        ...widget,
+        props: { ...widget.props, onMount: this.handleWidgetMount.bind(this) }
+      };
+
+      return (
+        <div
+          key={i}
+          className="oc-dashboard__widget"
+          >
+          {widget}
+        </div>
+      );
+    });
 
     return (
       <div className={`oc-dashboard`}>
@@ -53,74 +103,12 @@ class Dashboard extends Component {
           isDraggable={true}
           isResizable={false}
           layout={layout}
-          margin={[15, 15]}
+          margin={widgetMargin}
           rowHeight={52}
           cols={3}
           autosize={false}
         >
-          <div key="1" className={`oc-dashboard__widget`}>
-            <Collapsible
-              title="Attachements 1"
-              collapsed={collapsedWidgets.indexOf('attachements-1') !== -1}
-              onCollapse={() => this.handleWidgetToggle('attachements-1')}
-              >
-              <AttachementsList
-                attachements={demoData.attachements}
-              />
-            </Collapsible>
-          </div>
-
-          <div key="2" className={`oc-dashboard__widget`}>
-            <Collapsible
-              title="Attachements 2"
-              collapsed={collapsedWidgets.indexOf('attachements-2') !== -1}
-              onCollapse={() => this.handleWidgetToggle('attachements-2')}
-              className={`oc-dashboard__widget`}
-            >
-              <AttachementsList
-                attachements={demoData.attachements}
-              />
-            </Collapsible>
-          </div>
-
-          <div key="3" className={`oc-dashboard__widget`}>
-            <Collapsible
-              title="Attachements 3"
-              collapsed={collapsedWidgets.indexOf('attachements-3') !== -1}
-              onCollapse={() => this.handleWidgetToggle('attachements-3')}
-              className={`oc-dashboard__widget`}
-              >
-              <AttachementsList
-                attachements={demoData.attachements}
-              />
-            </Collapsible>
-          </div>
-
-          <div key="4" className={`oc-dashboard__widget`}>
-            <Collapsible
-              title="Attachements 4"
-              collapsed={collapsedWidgets.indexOf('attachements-4') !== -1}
-              onCollapse={() => this.handleWidgetToggle('attachements-4')}
-              className={`oc-dashboard__widget`}
-              >
-              <AttachementsList
-                attachements={demoData.attachements}
-              />
-            </Collapsible>
-          </div>
-
-          <div key="5" className={`oc-dashboard__widget`}>
-            <Collapsible
-              title="Attachements 5"
-              collapsed={collapsedWidgets.indexOf('attachements-5') !== -1}
-              onCollapse={() => this.handleWidgetToggle('attachements-5')}
-              className={`oc-dashboard__widget`}
-              >
-              <AttachementsList
-                attachements={demoData.attachements}
-              />
-            </Collapsible>
-          </div>
+          {wrappedChildren}
         </GridLayout>
       </div>
     );

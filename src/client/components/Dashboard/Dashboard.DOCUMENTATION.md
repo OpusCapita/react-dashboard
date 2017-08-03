@@ -12,7 +12,40 @@ Dashboard is
 ### Code Example
 
 ```
-<Dashboard />
+<Dashboard>
+  <DashboardWidget
+    key="attachements-1"  
+    collapsed={false}
+    w={2}
+    h={1}
+  >
+    <Collapsible
+       title="Attachements 1"
+       collapsed={false}
+       onCollapse={() => {}}
+    >
+       <AttachementsList
+         attachements={_scope.state.demoData.attachements}
+       />
+    </Collapsible>
+  </DashboardWidget>
+
+  <DashboardWidget
+    key="attachements-2"
+    w={1}
+    h={1}
+  >
+    <Collapsible
+       title="Attachements 2"
+       collapsed={false}
+       onCollapse={() => {}}
+    >
+       <AttachementsList
+         attachements={_scope.state.demoData.attachements}
+       />
+    </Collapsible>
+  </DashboardWidget>
+</Dashboard>
 ```
 
 ### Component Name

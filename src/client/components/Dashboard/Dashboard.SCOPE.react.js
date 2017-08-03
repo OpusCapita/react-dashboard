@@ -6,14 +6,24 @@
 import React, { Component, PropTypes } from 'react';
 import { showroomScopeDecorator } from '@opuscapita/react-showroom-client';
 import { ThemeProvider } from '@opuscapita/react-theming';
+import Collapsible from '../Collapsible';
+import DashboardWidget from '../DashboardWidget';
+import AttachementsList from '../AttachementsList';
+import demoData from './demo-data';
 import theme from '../../theme';
+
+window.Collapsible = Collapsible;
+window.DashboardWidget = DashboardWidget;
+window.AttachementsList = AttachementsList;
 
 @showroomScopeDecorator
 export default
 class DashboardScope extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      demoData
+    };
   }
 
   render() {
