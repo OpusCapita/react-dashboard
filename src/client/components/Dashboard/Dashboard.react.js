@@ -33,23 +33,9 @@ class Dashboard extends Component {
     this.state = {
       collapsedWidgets: [],
       layout: [],
-      initialWidgetsOptions: {}
+      initialWidgetsProps: {},
+      modifiedWidgetsProps: {}
     };
-  }
-
-  handleWidgetToggle(widgetName) {
-    let { collapsedWidgets } = this.state;
-    let indexOfWidget = collapsedWidgets.indexOf(widgetName);
-
-    if(indexOfWidget === -1) {
-      let nextCollapsedWidgets = collapsedWidgets.concat([widgetName]);
-      this.setState({ collapsedWidgets: nextCollapsedWidgets });
-    } else {
-      let nextCollapsedWidgets = [].
-        concat(collapsedWidgets.slice(0, indexOfWidget)).
-        concat(collapsedWidgets.slice(indexOfWidget + 1, collapsedWidgets.length));
-      this.setState({ collapsedWidgets: nextCollapsedWidgets });
-    }
   }
 
   generateLayout() {
@@ -58,13 +44,44 @@ class Dashboard extends Component {
 
   handleWidgetMount(options) {
     this.setState((prevState) => {
-      let initialWidgetsOptions = { ...prevState.initialWidgetsOptions, [options.id]: options };
-      return { initialWidgetsOptions };
+      let initialWidgetsProps = { ...prevState.initialWidgetsProps, [options.id]: options };
+      return { initialWidgetsProps };
     });
   }
 
-  handleWidgetCollapse(id) {
-    console.log('collapse:', id);
+  handleWidgetPropChange(widgetId, propKey, propValue) {
+    let widgetProps = this.state.modifiedWidgetsProps[widgetId] || {};
+    let modifiedWidgetsProps = {
+      ...this.state.modifiedWidgetsProps,
+      [widgetId]: {
+        ...widgetProps,
+        [propKey]: propValue
+      }
+    };
+
+    this.setState({ modifiedWidgetsProps });
+  }
+
+  getWidgetProps(widgetId) {
+    let {
+      initialWidgetsProps,
+      modifiedWidgetsProps
+    } = this.state;
+
+    let widgetProps = Object.keys(initialWidgetsProps[widgetId]).reduce((propsAccum, propKey) => {
+      let propModified = (
+        modifiedWidgetsProps[widgetId] &&
+        typeof modifiedWidgetsProps[widgetId][propKey] !== 'undefined'
+      );
+
+      let propValue =  propModified ?
+        modifiedWidgetsProps[widgetId][propKey] :
+        initialWidgetsProps[widgetId][propKey];
+
+      return { ...propsAccum, [propKey]: propValue };
+    }, {});
+
+    return widgetProps;
   }
 
   render() {
@@ -78,12 +95,16 @@ class Dashboard extends Component {
     let {
       collapsedWidgets,
       layout,
-      initialWidgetsOptions
+      initialWidgetsProps,
+      modifiedWidgetsProps
     } = this.state;
 
-    console.log(initialWidgetsOptions);
+    // console.log('init:', initialWidgetsProps);
+    // console.log('mod:', modifiedWidgetsProps);
 
     let wrappedWidgets = children.map((widget, i) => {
+      let mergedProps = initialWidgetsProps[widget.props.id] ? this.getWidgetProps(widget.props.id) : widget.props;
+
       return (
         <div
           key={widget.props.id}
@@ -93,7 +114,9 @@ class Dashboard extends Component {
             ...widget,
             props: {
               ...widget.props,
-              onMount: this.handleWidgetMount.bind(this)
+              ...mergedProps,
+              onMount: this.handleWidgetMount.bind(this),
+              onCollapse: this.handleWidgetPropChange.bind(this)
             }
           }}
         </div>

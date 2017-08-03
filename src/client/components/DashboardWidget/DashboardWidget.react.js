@@ -14,7 +14,8 @@ const propTypes = {
   minW: Types.number,
   minH: Types.number,
   onMount: Types.func,
-  onUnmount: Types.func
+  onUnmount: Types.func,
+  onCollapse: Types.func
 };
 const defaultProps = {
   collapsible: true,
@@ -28,7 +29,8 @@ const defaultProps = {
   minW: 1,
   minH: 1,
   onMount: () => {},
-  onUnmount: () => {}
+  onUnmount: () => {},
+  onCollapse: () => {}
 };
 
 export default
@@ -66,14 +68,25 @@ class DashboardWidget extends Component {
       maxW,
       maxH,
       minW,
-      minH
+      minH,
+      onCollapse
     } = this.props;
+
+    let child = React.Children.only(this.props.children);
 
     return (
       <div
         className="oc-dashboard-widget"
       >
-        {this.props.children}
+        {{
+          ...child,
+          props: {
+            ...child.props,
+            collapsible,
+            collapsed,
+            onCollapse: () => onCollapse(id, 'collapsed', !collapsed)
+          }
+        }}
       </div>
     );
   }
