@@ -26,6 +26,7 @@ const propTypes = {
   className: Types.string,
   collapsed: Types.bool,
   collapsible: Types.bool,
+  resizable: Types.bool,
   title: Types.string,
   onCollapse: Types.func
 };
@@ -33,6 +34,7 @@ const defaultProps = {
   className: '',
   collapsed: false,
   collapsible: false,
+  resizable: true,
   title: '',
   onCollapse: () => {}
 };
@@ -71,7 +73,8 @@ class Collapsible extends Component {
     let {
       className,
       collapsed,
-      title
+      title,
+      resizable
     } = this.props;
 
     let { childHeight, inMotion } = this.state;

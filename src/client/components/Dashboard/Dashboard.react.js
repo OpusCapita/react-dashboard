@@ -158,7 +158,6 @@ class Dashboard extends Component {
           cols={cols}
           autosize={false}
           width={size.width}
-          cols={}
         >
           {wrappedWidgets}
         </ReactGridLayout>
