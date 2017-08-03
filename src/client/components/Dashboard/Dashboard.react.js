@@ -18,14 +18,12 @@ const propTypes = {
     Types.number,
     Types.number
   ]),
-  maxWidgetHeight: Types.number,
   children: Types.arrayOf(Types.node)
 };
 const defaultProps = {
-  cols: 12,
+  cols: 6,
   rowHeight: 52,
   widgetMarigin: [15, 15],
-  maxWidgetHeight: 4,
   children: []
 };
 
@@ -35,7 +33,7 @@ class Dashboard extends Component {
     this.state = {
       collapsedWidgets: [],
       layout: [],
-      mountedWidgets: []
+      initialWidgetsOptions: {}
     };
   }
 
@@ -59,8 +57,14 @@ class Dashboard extends Component {
   }
 
   handleWidgetMount(options) {
-    let mountedWidgets = this.state.mountedWidgets.concat([options]);
-    this.setState({ mountedWidgets });
+    this.setState((prevState) => {
+      let initialWidgetsOptions = { ...prevState.initialWidgetsOptions, [options.id]: options };
+      return { initialWidgetsOptions };
+    });
+  }
+
+  handleWidgetCollapse(id) {
+    console.log('collapse:', id);
   }
 
   render() {
@@ -68,19 +72,18 @@ class Dashboard extends Component {
       cols,
       children,
       rowHeight,
-      widgetMargin,
-      maxWidgetHeight
+      widgetMargin
     } = this.props;
 
     let {
       collapsedWidgets,
       layout,
-      mountedWidgets
+      initialWidgetsOptions
     } = this.state;
 
-    console.log(mountedWidgets);
+    console.log(initialWidgetsOptions);
 
-    let widgets = children.map((widget, i) => {
+    let wrappedWidgets = children.map((widget, i) => {
       return (
         <div
           key={widget.props.id}
@@ -105,10 +108,10 @@ class Dashboard extends Component {
           layout={layout}
           margin={widgetMargin}
           rowHeight={52}
-          cols={3}
+          cols={cols}
           autosize={false}
         >
-          {widgets}
+          {wrappedWidgets}
         </GridLayout>
       </div>
     );

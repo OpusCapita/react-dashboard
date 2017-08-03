@@ -49,7 +49,7 @@ class DashboardWidget extends Component {
       maxW: this.props.maxW,
       maxH: this.props.maxH,
       minW: this.props.minW,
-      min: this.props.min
+      minH: this.props.minH
     };
 
     this.props.onMount(options);
