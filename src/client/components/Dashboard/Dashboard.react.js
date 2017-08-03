@@ -3,28 +3,26 @@ import Types from 'prop-types';
 import './Dashboard.less';
 import AttachementsList from '../AttachementsList';
 import Collapsible from '../Collapsible';
-import ReactGridLayout, { WidthProvider } from 'react-grid-layout';
+import { Responsive as ReactGridLayout } from 'react-grid-layout';
 import DashboardWidget from '../DashboardWidget';
 import sizeMe from 'react-sizeme';
 import 'react-grid-layout/css/styles.css';
 import demoData from './demo-data';
 
-const GridLayout = WidthProvider(ReactGridLayout);
-
 const propTypes = {
-  cols: Types.number,
   rowHeight: Types.number,
   widgetMargin: Types.arrayOf([
     Types.number,
     Types.number
   ]),
-  children: Types.arrayOf(Types.node)
+  children: Types.arrayOf(Types.node),
+  cols: Types.object
 };
 const defaultProps = {
-  cols: 6,
   rowHeight: 52,
   widgetMarigin: [15, 15],
-  children: []
+  children: [],
+  cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }
 };
 
 class Dashboard extends Component {
@@ -38,8 +36,27 @@ class Dashboard extends Component {
     };
   }
 
+  componentDidMount() {
+    this.handleWidthChange(this.props.size.width);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.size.width !== nextProps.size.width) {
+      this.handleWidthChange(nextProps.size.width);
+    }
+  }
+
+  handleWidthChange(width) {
+    console.log(width);
+    this.setColumnsCount(width);
+  }
+
   generateLayout() {
 
+  }
+
+  setColumnsCount(width) {
+    console.log(width);
   }
 
   handleWidgetMount(options) {
@@ -49,7 +66,7 @@ class Dashboard extends Component {
     });
   }
 
-  handleWidgetPropChange(widgetId, propKey, propValue) {
+  setWidgetProp(widgetId, propKey, propValue) {
     let widgetProps = this.state.modifiedWidgetsProps[widgetId] || {};
     let modifiedWidgetsProps = {
       ...this.state.modifiedWidgetsProps,
@@ -62,22 +79,26 @@ class Dashboard extends Component {
     this.setState({ modifiedWidgetsProps });
   }
 
+  getWidgetProp(widgetId, propKey) {
+    let { initialWidgetsProps, modifiedWidgetsProps } = this.state;
+
+    let propModified = (
+      modifiedWidgetsProps[widgetId] &&
+      typeof modifiedWidgetsProps[widgetId][propKey] !== 'undefined'
+    );
+
+    let propValue =  propModified ?
+      modifiedWidgetsProps[widgetId][propKey] :
+      initialWidgetsProps[widgetId][propKey];
+
+    return propValue;
+  }
+
   getWidgetProps(widgetId) {
-    let {
-      initialWidgetsProps,
-      modifiedWidgetsProps
-    } = this.state;
+    let { initialWidgetsProps, modifiedWidgetsProps } = this.state;
 
     let widgetProps = Object.keys(initialWidgetsProps[widgetId]).reduce((propsAccum, propKey) => {
-      let propModified = (
-        modifiedWidgetsProps[widgetId] &&
-        typeof modifiedWidgetsProps[widgetId][propKey] !== 'undefined'
-      );
-
-      let propValue =  propModified ?
-        modifiedWidgetsProps[widgetId][propKey] :
-        initialWidgetsProps[widgetId][propKey];
-
+      let propValue = this.getWidgetProp(widgetId, propKey);
       return { ...propsAccum, [propKey]: propValue };
     }, {});
 
@@ -86,9 +107,10 @@ class Dashboard extends Component {
 
   render() {
     let {
-      cols,
       children,
+      cols,
       rowHeight,
+      size,
       widgetMargin
     } = this.props;
 
@@ -116,7 +138,7 @@ class Dashboard extends Component {
               ...widget.props,
               ...mergedProps,
               onMount: this.handleWidgetMount.bind(this),
-              onCollapse: this.handleWidgetPropChange.bind(this)
+              onCollapse: this.setWidgetProp.bind(this)
             }
           }}
         </div>
@@ -125,17 +147,19 @@ class Dashboard extends Component {
 
     return (
       <div className={`oc-dashboard`}>
-        <GridLayout
+        <ReactGridLayout
           isDraggable={true}
-          isResizable={false}
+          isResizable={true}
           layout={layout}
           margin={widgetMargin}
           rowHeight={52}
           cols={cols}
           autosize={false}
+          width={size.width}
+          cols={}
         >
           {wrappedWidgets}
-        </GridLayout>
+        </ReactGridLayout>
       </div>
     );
   }
@@ -144,4 +168,4 @@ class Dashboard extends Component {
 Dashboard.propTypes = propTypes;
 Dashboard.defaultProps = defaultProps;
 
-export default sizeMe({ refreshRate: 128 })(Dashboard);
+export default sizeMe({ monitorWidth: true, refreshRate: 128 })(Dashboard);
