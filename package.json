@@ -1,5 +1,5 @@
 {
-  "name": "@opuscapita/dashboard",
+  "name": "@opuscapita/react-dashboard",
   "version": "0.0.1",
   "description": "Start write new project with no effort.",
   "scripts": {

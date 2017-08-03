@@ -11,7 +11,7 @@ import theme from '../../theme';
 
 @showroomScopeDecorator
 export default
-class DashboardWidgetScope extends Component {
+class CollapsibleScope extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,9 +34,9 @@ class DashboardWidgetScope extends Component {
   }
 }
 
-DashboardWidgetScope.contextTypes = {
+CollapsibleScope.contextTypes = {
   i18n: PropTypes.object
 };
-DashboardWidgetScope.childContextTypes = {
+CollapsibleScope.childContextTypes = {
   i18n: PropTypes.object
 };
