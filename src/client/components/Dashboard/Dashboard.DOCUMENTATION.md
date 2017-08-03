@@ -14,7 +14,7 @@ Dashboard is
 ```
 <Dashboard>
   <DashboardWidget
-    key="attachements-1"  
+    id="attachements-1"  
     collapsed={false}
     w={2}
     h={1}
@@ -31,7 +31,7 @@ Dashboard is
   </DashboardWidget>
 
   <DashboardWidget
-    key="attachements-2"
+    id="attachements-2"
     w={1}
     h={1}
   >

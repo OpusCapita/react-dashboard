@@ -59,7 +59,6 @@ class Dashboard extends Component {
   }
 
   handleWidgetMount(options) {
-    console.log(options);
     let mountedWidgets = this.state.mountedWidgets.concat([options]);
     this.setState({ mountedWidgets });
   }
@@ -82,17 +81,18 @@ class Dashboard extends Component {
     console.log(mountedWidgets);
 
     let widgets = children.map((widget, i) => {
-      let widget = {
-        ...widget,
-        props: { ...widget.props, onMount: this.handleWidgetMount.bind(this) }
-      };
-
       return (
         <div
-          key={i}
+          key={widget.props.id}
           className="oc-dashboard__widget"
-          >
-          {widget}
+        >
+          {{
+            ...widget,
+            props: {
+              ...widget.props,
+              onMount: this.handleWidgetMount.bind(this)
+            }
+          }}
         </div>
       );
     });
@@ -108,7 +108,7 @@ class Dashboard extends Component {
           cols={3}
           autosize={false}
         >
-          {wrappedChildren}
+          {widgets}
         </GridLayout>
       </div>
     );
