@@ -16,13 +16,15 @@ const propTypes = {
     Types.number
   ]),
   children: Types.arrayOf(Types.node),
-  cols: Types.object
+  cols: Types.object,
+  breakpoints: Types.object
 };
 const defaultProps = {
   rowHeight: 52,
   widgetMarigin: [15, 15],
   children: [],
-  cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }
+  cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
+  breakpoints: { lg: 1200, md: 992, sm: 768, xs: 576, xxs: 0 }
 };
 
 class Dashboard extends Component {
