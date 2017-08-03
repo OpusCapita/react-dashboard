@@ -78,6 +78,31 @@ Dashboard is
     </Collapsible>
   </DashboardWidget>
 
+  <DashboardWidget
+    id="attachements-6"
+    collapsed={true}
+    w={1}
+    h={1}
+  >
+    <Collapsible title="Attachements 6">
+       <AttachementsList
+         attachements={_scope.state.demoData.attachements}
+       />
+    </Collapsible>
+  </DashboardWidget>
+
+  <DashboardWidget
+    id="attachements-7"
+    collapsed={true}
+    w={1}
+    h={1}
+  >
+    <Collapsible title="Attachements 7">
+       <AttachementsList
+         attachements={_scope.state.demoData.attachements}
+       />
+    </Collapsible>
+  </DashboardWidget>
 
 </Dashboard>
 ```
