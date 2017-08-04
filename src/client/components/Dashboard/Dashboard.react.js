@@ -18,7 +18,7 @@ const propTypes = {
 };
 const defaultProps = {
   rowHeight: 52,
-  widgetMargin: [12, 12],
+  widgetMargin: [16, 16], // please use even numbers. Ther is number round fault
   children: [],
   cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
   breakpoints: { lg: 1200, md: 992, sm: 768, xs: 576, xxs: 0 }
