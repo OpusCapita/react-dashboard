@@ -11,17 +11,14 @@ import demoData from './demo-data';
 
 const propTypes = {
   rowHeight: Types.number,
-  widgetMargin: Types.arrayOf([
-    Types.number,
-    Types.number
-  ]),
+  widgetMargin: Types.arrayOf(Types.number),
   children: Types.arrayOf(Types.node),
   cols: Types.object,
   breakpoints: Types.object
 };
 const defaultProps = {
   rowHeight: 52,
-  widgetMarigin: [15, 15],
+  widgetMargin: [12, 12],
   children: [],
   cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
   breakpoints: { lg: 1200, md: 992, sm: 768, xs: 576, xxs: 0 }
@@ -49,7 +46,6 @@ class Dashboard extends Component {
   }
 
   handleWidthChange(width) {
-    console.log(width);
     this.setColumnsCount(width);
   }
 
@@ -58,7 +54,7 @@ class Dashboard extends Component {
   }
 
   setColumnsCount(width) {
-    console.log(width);
+
   }
 
   handleWidgetMount(options) {
@@ -107,6 +103,20 @@ class Dashboard extends Component {
     return widgetProps;
   }
 
+  handleResize(layout, oldItem, newItem, placeholder, e, element) {
+    // console.log(layout);
+    // console.log(oldItem);
+    // console.log(newItem);
+    // console.log(placeholder);
+    // console.log(e);
+    // console.log(element);
+  }
+
+  handleLayoutChange(layout) {
+    this.setState({ layout });
+    console.log(layout);
+  }
+
   render() {
     let {
       children,
@@ -128,6 +138,8 @@ class Dashboard extends Component {
 
     let wrappedWidgets = children.map((widget, i) => {
       let mergedProps = initialWidgetsProps[widget.props.id] ? this.getWidgetProps(widget.props.id) : widget.props;
+      let layoutItem = layout.filter(layoutItem => layoutItem.i === widget.props.id)[0];
+      let maxHeight = layoutItem ? `${layoutItem.h * (rowHeight + widgetMargin[1]) - widgetMargin[1]}px` : 'initial';
 
       return (
         <div
@@ -139,6 +151,8 @@ class Dashboard extends Component {
             props: {
               ...widget.props,
               ...mergedProps,
+              style: { maxHeight },
+
               onMount: this.handleWidgetMount.bind(this),
               onCollapse: this.setWidgetProp.bind(this)
             }
@@ -158,6 +172,8 @@ class Dashboard extends Component {
           cols={cols}
           autosize={false}
           width={size.width}
+          onLayoutChange={this.handleLayoutChange.bind(this)}
+          onResize={this.handleResize.bind(this)}
         >
           {wrappedWidgets}
         </ReactGridLayout>

@@ -13,6 +13,8 @@ const propTypes = {
   maxH: Types.number,
   minW: Types.number,
   minH: Types.number,
+  className: Types.string,
+  style: Types.object,
   onMount: Types.func,
   onUnmount: Types.func,
   onCollapse: Types.func
@@ -28,6 +30,8 @@ const defaultProps = {
   maxH: 4,
   minW: 1,
   minH: 1,
+  className: '',
+  style: {},
   onMount: () => {},
   onUnmount: () => {},
   onCollapse: () => {}
@@ -69,6 +73,8 @@ class DashboardWidget extends Component {
       maxH,
       minW,
       minH,
+      className,
+      style,
       onCollapse
     } = this.props;
 
@@ -76,7 +82,8 @@ class DashboardWidget extends Component {
 
     return (
       <div
-        className="oc-dashboard-widget"
+        className={`oc-dashboard-widget ${className}`}
+        style={style}
       >
         {{
           ...child,
