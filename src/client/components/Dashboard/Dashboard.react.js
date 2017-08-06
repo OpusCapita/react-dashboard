@@ -3,7 +3,7 @@ import Types from 'prop-types';
 import './Dashboard.less';
 import AttachementsList from '../AttachementsList';
 import Collapsible from '../Collapsible';
-import { Responsive as ReactGridLayout } from 'react-grid-layout';
+import ReactGridLayout from 'react-grid-layout';
 import DashboardWidget from '../DashboardWidget';
 import sizeMe from 'react-sizeme';
 import 'react-grid-layout/css/styles.css';
@@ -50,7 +50,25 @@ class Dashboard extends Component {
   }
 
   generateLayout() {
+    let { initialWidgetsProps } = this.state;
+    let layout = Object.keys(initialWidgetsProps).map(widgetId => {
+      let nextWidgetLayout = {
+        i: widgetId,
+        h: this.getWidgetProp(widgetId, 'h'),
+        w: this.getWidgetProp(widgetId, 'w'),
+        x: this.getWidgetProp(widgetId, 'x'),
+        y: this.getWidgetProp(widgetId, 'y'),
+        minW: this.getWidgetProp(widgetId, 'minW'),
+        maxW: this.getWidgetProp(widgetId, 'maxW'),
+        minH: this.getWidgetProp(widgetId, 'minH'),
+        maxH: this.getWidgetProp(widgetId, 'maxH')
+      };
+      console.log(`widgetProps ${widgetId}`, nextWidgetLayout);
 
+      return nextWidgetLayout;
+    });
+
+    return layout;
   }
 
   setColumnsCount(width) {
@@ -78,12 +96,23 @@ class Dashboard extends Component {
   }
 
   getWidgetProp(widgetId, propKey) {
-    let { initialWidgetsProps, modifiedWidgetsProps } = this.state;
+    let { initialWidgetsProps, modifiedWidgetsProps, layout } = this.state;
+
+    // let propInitiated = (
+    //   initialWidgetsProps[widgetId] &&
+    //   typeof initialWidgetsProps[widgetId][propKey] !== 'undefined');
+
+    // if(!propInitiated) {
+    //   let widgetLayout = layout.filter(widgetLayoutItem => widgetLayoutItem.i === widgetId)[0];
+    //   return widgetLayout[propKey];
+    // }
 
     let propModified = (
       modifiedWidgetsProps[widgetId] &&
       typeof modifiedWidgetsProps[widgetId][propKey] !== 'undefined'
     );
+
+    console.log(widgetId, propKey, modifiedWidgetsProps[widgetId]);
 
     let propValue =  propModified ?
       modifiedWidgetsProps[widgetId][propKey] :
@@ -94,6 +123,10 @@ class Dashboard extends Component {
 
   getWidgetProps(widgetId) {
     let { initialWidgetsProps, modifiedWidgetsProps } = this.state;
+
+    if(!initialWidgetsProps.length) {
+      return ({ });
+    }
 
     let widgetProps = Object.keys(initialWidgetsProps[widgetId]).reduce((propsAccum, propKey) => {
       let propValue = this.getWidgetProp(widgetId, propKey);
@@ -114,7 +147,14 @@ class Dashboard extends Component {
 
   handleLayoutChange(layout) {
     this.setState({ layout });
-    console.log(layout);
+    // let widgetProps = this.getWidgetProps();
+    // console.log('wp', widgetProps);
+  }
+
+  handleWidgetCollapse(widgetId) {
+    let { initialWidgetsProps } = this.state;
+    let widgetCollapsed = this.getWidgetProp(widgetId, 'collapsed');
+    this.setWidgetProp(widgetId, 'collapsed', !widgetCollapsed);
   }
 
   render() {
@@ -132,9 +172,6 @@ class Dashboard extends Component {
       initialWidgetsProps,
       modifiedWidgetsProps
     } = this.state;
-
-    // console.log('init:', initialWidgetsProps);
-    // console.log('mod:', modifiedWidgetsProps);
 
     let wrappedWidgets = children.map((widget, i) => {
       let mergedProps = initialWidgetsProps[widget.props.id] ? this.getWidgetProps(widget.props.id) : widget.props;
@@ -154,12 +191,13 @@ class Dashboard extends Component {
               style: { maxHeight },
 
               onMount: this.handleWidgetMount.bind(this),
-              onCollapse: this.setWidgetProp.bind(this)
+              onCollapse: this.handleWidgetCollapse.bind(this)
             }
           }}
         </div>
       );
     });
+    console.log('l', layout);
 
     return (
       <div className={`oc-dashboard`}>
@@ -169,7 +207,7 @@ class Dashboard extends Component {
           layout={layout}
           margin={widgetMargin}
           rowHeight={rowHeight}
-          cols={cols}
+          cols={12}
           autosize={false}
           width={size.width}
           onLayoutChange={this.handleLayoutChange.bind(this)}

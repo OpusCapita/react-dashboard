@@ -25,7 +25,7 @@ const defaultProps = {
   resizable: false,
   id: (Math.random() / Math.random()).toString(),
   w: 3,
-  h: 1,
+  h: 4,
   maxW: 2,
   maxH: 4,
   minW: 1,
@@ -91,7 +91,7 @@ class DashboardWidget extends Component {
             ...child.props,
             collapsible,
             collapsed,
-            onCollapse: () => onCollapse(id, 'collapsed', !collapsed)
+            onCollapse: () => onCollapse(id)
           }
         }}
       </div>
