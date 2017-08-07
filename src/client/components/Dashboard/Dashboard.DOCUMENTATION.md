@@ -16,7 +16,7 @@ Dashboard is
   <DashboardWidget
     id="attachements-1"  
     collapsed={true}
-    w={2}
+    w={3}
     h={4}
   >
     <Collapsible title="Attachements 1">
@@ -29,7 +29,7 @@ Dashboard is
   <DashboardWidget
     id="attachements-2"
     collapsed={true}
-    w={1}
+    w={3}
     h={4}
   >
     <Collapsible title="Attachements 2">
@@ -42,7 +42,7 @@ Dashboard is
   <DashboardWidget
     id="attachements-3"
     collapsed={true}
-    w={1}
+    w={3}
     h={4}
   >
     <Collapsible title="Attachements 3">
@@ -55,7 +55,7 @@ Dashboard is
   <DashboardWidget
     id="attachements-4"
     collapsed={true}
-    w={1}
+    w={3}
     h={3}
   >
     <Collapsible title="Attachements 4">
@@ -68,8 +68,8 @@ Dashboard is
   <DashboardWidget
     id="attachements-5"
     collapsed={true}
-    w={1}
-    h={1}
+    w={3}
+    h={3}
   >
     <Collapsible title="Attachements 5">
        <AttachementsList
@@ -81,7 +81,7 @@ Dashboard is
   <DashboardWidget
     id="attachements-6"
     collapsed={true}
-    w={1}
+    w={3}
     h={5}
   >
     <Collapsible title="Attachements 6">
@@ -94,8 +94,8 @@ Dashboard is
   <DashboardWidget
     id="attachements-7"
     collapsed={true}
-    w={1}
-    h={1}
+    w={3}
+    h={3}
   >
     <Collapsible title="Attachements 7">
        <AttachementsList
