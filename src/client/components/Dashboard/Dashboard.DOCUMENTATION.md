@@ -15,7 +15,7 @@ Dashboard is
 <Dashboard>
   <DashboardWidget
     id="attachements-1"  
-    collapsed={true}
+    collapsed={false}
     w={3}
     h={4}
   >

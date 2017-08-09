@@ -38,7 +38,7 @@ class Dashboard extends Component {
   componentDidMount() {
     // this.handleWidthChange(this.props.size.width);
 
-    // let nextLayout = this.generateLayout(this.state);
+    // let nextLayout = this.generateLayout(this.state.layout);
     // this.setState({ layout: nextLayout });
   }
 
@@ -57,18 +57,23 @@ class Dashboard extends Component {
     let layout = Object.keys(initialWidgetsProps).map(widgetId => {
       let collapsed = this.getWidgetProp(state, widgetId, 'collapsed');
       let h = collapsed ? 1 : this.getWidgetProp(state, widgetId, 'h');
+      let minW = this.getWidgetProp(state, widgetId, 'minW');
+      let maxW = this.getWidgetProp(state, widgetId, 'maxW');
+      let minH = this.getWidgetProp(state, widgetId, 'minH');
+      let maxH = this.getWidgetProp(state, widgetId, 'maxH');
+
       let nextWidgetLayout = {
         i: widgetId,
         h,
         w: this.getWidgetProp(state, widgetId, 'w'),
         x: this.getWidgetProp(state, widgetId, 'x') || 0,
         y: this.getWidgetProp(state, widgetId, 'y') || 0,
-        minW: this.getWidgetProp(state, widgetId, 'minW'),
-        maxW: this.getWidgetProp(state, widgetId, 'maxW'),
-        minH: this.getWidgetProp(state, widgetId, 'minH'),
-        maxH: this.getWidgetProp(state, widgetId, 'maxH')
+        minW: (typeof minW === 'undefined' || minW === null) ? undefined : minW,
+        maxW: (typeof maxW === 'undefined' || minW === null) ? undefined : minW,
+        minH: (typeof minH === 'undefined' || minW === null) ? undefined : minW,
+        maxH: (typeof maxH === 'undefined' || minW === null) ? undefined : minW
       };
-      console.log('lehhl', nextWidgetLayout);
+
       return nextWidgetLayout;
     });
 
@@ -82,7 +87,13 @@ class Dashboard extends Component {
   handleWidgetMount(options) {
     this.setState((prevState) => {
       let initialWidgetsProps = { ...prevState.initialWidgetsProps, [options.id]: options };
-      return { initialWidgetsProps };
+      let layout = this.generateLayout({ ...prevState, initialWidgetsProps });
+
+      return ({
+        ...prevState,
+        initialWidgetsProps,
+        layout
+      });
     });
   }
 
@@ -108,6 +119,10 @@ class Dashboard extends Component {
 
   getWidgetProp(state, widgetId, propKey) {
     let { initialWidgetsProps, modifiedWidgetsProps, layout } = state;
+
+    if (typeof initialWidgetsProps[widgetId] === 'undefined') {
+      return;
+    }
 
     let propModified = (
       modifiedWidgetsProps[widgetId] &&
@@ -136,18 +151,19 @@ class Dashboard extends Component {
     return widgetProps;
   }
 
-  handleResizeStop(layout, oldItem, newItem, placeholder, e, element) {
-    // let newLayout = this.generateLayout();
-    // this.setState({ layout: newLayout });
+  handleResize(layout, oldItem, newItem, placeholder, e, element) {
+    this.setWidgetProp(newItem.i, 'w', newItem.w);
+    this.setWidgetProp(newItem.i, 'h', newItem.h);
   }
 
-  handleDragStop(layout, oldItem, newItem, placeholder, e, element) {
-    // let newLayout = this.generateLayout();
-    // this.setState(prevState => ({ layout: newLayout }));
+  handleDrag(layout, oldItem, newItem, placeholder, e, element) {
+    this.setWidgetProp(newItem.i, 'x', newItem.x);
+    this.setWidgetProp(newItem.i, 'y', newItem.y);
   }
 
   handleLayoutChange(layout) {
-    this.setState({ layout });
+    // this.setState({ layout });
+    // this.setState({ layout: this.generateLayout({ ...this.state, layout }) });
   }
 
   handleWidgetCollapse(widgetId) {
@@ -173,8 +189,8 @@ class Dashboard extends Component {
 
     let wrappedWidgets = children.map((widget, i) => {
       let mergedProps = initialWidgetsProps[widget.props.id] ? this.getWidgetProps(this.state, widget.props.id) : widget.props;
-      let layoutItem = layout.filter(layoutItem => layoutItem.i === widget.props.id)[0];
-      let maxHeight = layoutItem ? `${layoutItem.h * (rowHeight + widgetMargin[1]) - widgetMargin[1]}px` : 'initial';
+      let h = this.getWidgetProp(this.state, widget.props.id, 'h');
+      let maxHeight = `${h * (rowHeight + widgetMargin[1]) - widgetMargin[1]}px`;
 
       return (
         <div
@@ -208,8 +224,8 @@ class Dashboard extends Component {
           autosize={false}
           width={size.width}
           onLayoutChange={this.handleLayoutChange.bind(this)}
-          onResizeStop={this.handleResizeStop.bind(this)}
-          onDragStop={this.handleDragStop.bind(this)}
+          onResize={this.handleResize.bind(this)}
+          onDrag={this.handleDrag.bind(this)}
         >
           {wrappedWidgets}
         </ReactGridLayout>
