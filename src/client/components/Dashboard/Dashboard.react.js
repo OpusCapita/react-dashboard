@@ -167,8 +167,8 @@ class Dashboard extends Component {
   }
 
   handleWidgetCollapse(widgetId) {
-    let widgetCollapsed = this.getWidgetProp(this.state, widgetId, 'collapsed');
-    this.setWidgetProp(widgetId, 'collapsed', !widgetCollapsed);
+    let collapsed = this.getWidgetProp(this.state, widgetId, 'collapsed');
+    this.setWidgetProp(widgetId, 'collapsed', !collapsed);
   }
 
   render() {
