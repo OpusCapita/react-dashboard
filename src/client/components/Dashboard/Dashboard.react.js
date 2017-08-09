@@ -154,6 +154,7 @@ class Dashboard extends Component {
   handleResize(layout, oldItem, newItem, placeholder, e, element) {
     this.setWidgetProp(newItem.i, 'w', newItem.w);
     this.setWidgetProp(newItem.i, 'h', newItem.h);
+    this.setWidgetProp(newItem.i, 'collapsed', !!(newItem.h <= 1));
   }
 
   handleDrag(layout, oldItem, newItem, placeholder, e, element) {
@@ -186,7 +187,7 @@ class Dashboard extends Component {
       initialWidgetsProps,
       modifiedWidgetsProps
     } = this.state;
-
+    console.log('layout:', layout);
     let wrappedWidgets = children.map((widget, i) => {
       let mergedProps = initialWidgetsProps[widget.props.id] ? this.getWidgetProps(this.state, widget.props.id) : widget.props;
       let h = this.getWidgetProp(this.state, widget.props.id, 'h');
