@@ -2,15 +2,16 @@
 
 # React Dashboard
 
-> Work in progress! There are several bugs now
+## !!! Work in progress! There are several bugs now. See [issues](https://github.com/OpusCapita/react-dashboard/issues).
 
-Draggable and resizable dashboard component. 
-
-![demo](https://raw.githubusercontent.com/OpusCapita/react-dashboard/master/demo.gif)
+Draggable and resizable dashboard component.
 
 See interactive [example](https://opuscapita.github.io/react-dashboard/?currentComponentId=%40opuscapita%2Freact-dashboard%2F0.0.2%2FDashboard&maxContainerWidth=100%25&showSidebar=false
 ) for more details.
+
 > Demo powered by [React Showroom](https://github.com/OpusCapita/react-showroom-client)
+
+![demo](https://raw.githubusercontent.com/OpusCapita/react-dashboard/master/demo.gif)
 
 ## Contributors
 
