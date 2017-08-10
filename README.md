@@ -6,7 +6,7 @@
 
 Draggable and resizable dashboard component.
 
-See interactive [example](https://opuscapita.github.io/react-dashboard/?currentComponentId=%40opuscapita%2Freact-dashboard%2F0.0.2%2FDashboard&maxContainerWidth=100%25&showSidebar=false
+See interactive [demo](https://opuscapita.github.io/react-dashboard/?currentComponentId=%40opuscapita%2Freact-dashboard%2F0.0.2%2FDashboard&maxContainerWidth=100%25&showSidebar=false
 ) for more details.
 
 > Demo powered by [React Showroom](https://github.com/OpusCapita/react-showroom-client)
