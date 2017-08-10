@@ -36,6 +36,7 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
+    console.log(this.state.initialWidgetsProps);
     // this.handleWidthChange(this.props.size.width);
 
     // let nextLayout = this.generateLayout(this.state.layout);
@@ -97,10 +98,10 @@ class Dashboard extends Component {
     });
   }
 
-  setWidgetProp(widgetId, propKey, propValue) {
-    let widgetProps = this.state.modifiedWidgetsProps[widgetId] || {};
+  setWidgetProp(state, widgetId, propKey, propValue) {
+    let widgetProps = state.modifiedWidgetsProps[widgetId] || {};
     let modifiedWidgetsProps = {
-      ...this.state.modifiedWidgetsProps,
+      ...state.modifiedWidgetsProps,
       [widgetId]: {
         ...widgetProps,
         [propKey]: propValue
@@ -108,13 +109,13 @@ class Dashboard extends Component {
     };
 
     let nextState = ({
-      ...this.state,
+      ...state,
       modifiedWidgetsProps
     });
 
     let layout = this.generateLayout(nextState);
 
-    this.setState({ ...nextState, layout });
+    return ({ ...nextState, layout });
   }
 
   getWidgetProp(state, widgetId, propKey) {
@@ -152,14 +153,22 @@ class Dashboard extends Component {
   }
 
   handleResize(layout, oldItem, newItem, placeholder, e, element) {
-    this.setWidgetProp(newItem.i, 'w', newItem.w);
-    this.setWidgetProp(newItem.i, 'h', newItem.h);
-    this.setWidgetProp(newItem.i, 'collapsed', !!(newItem.h <= 1));
+    let state = this.state;
+
+    state = this.setWidgetProp(state, newItem.i, 'w', newItem.w);
+    state = this.setWidgetProp(state, newItem.i, 'h', newItem.h);
+    state = this.setWidgetProp(state, newItem.i, 'collapsed', !!(newItem.h <= 1));
+
+    this.setState(state);
   }
 
   handleDrag(layout, oldItem, newItem, placeholder, e, element) {
-    this.setWidgetProp(newItem.i, 'x', newItem.x);
-    this.setWidgetProp(newItem.i, 'y', newItem.y);
+    let state = this.state;
+
+    state = this.setWidgetProp(state, newItem.i, 'x', newItem.x);
+    state = this.setWidgetProp(state, newItem.i, 'y', newItem.y);
+
+    this.setState(state);
   }
 
   handleLayoutChange(layout) {
@@ -168,8 +177,11 @@ class Dashboard extends Component {
   }
 
   handleWidgetCollapse(widgetId) {
-    let collapsed = this.getWidgetProp(this.state, widgetId, 'collapsed');
-    this.setWidgetProp(widgetId, 'collapsed', !collapsed);
+    let state = this.state;
+    let collapsed = this.getWidgetProp(state, widgetId, 'collapsed');
+
+    state = this.setWidgetProp(state, widgetId, 'collapsed', !collapsed);
+    this.setState(state);
   }
 
   render() {
@@ -187,7 +199,7 @@ class Dashboard extends Component {
       initialWidgetsProps,
       modifiedWidgetsProps
     } = this.state;
-    console.log('layout:', layout);
+
     let wrappedWidgets = children.map((widget, i) => {
       let mergedProps = initialWidgetsProps[widget.props.id] ? this.getWidgetProps(this.state, widget.props.id) : widget.props;
       let h = this.getWidgetProp(this.state, widget.props.id, 'h');
