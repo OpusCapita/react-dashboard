@@ -28,7 +28,10 @@ const propTypes = {
   collapsible: Types.bool,
   resizable: Types.bool,
   title: Types.string,
-  onCollapse: Types.func
+  onCollapse: Types.func,
+  onHeaderMouseDown: Types.func,
+  onHeaderMouseUp: Types.func,
+  onHeaderClick: Types.func
 };
 const defaultProps = {
   className: '',
@@ -36,7 +39,10 @@ const defaultProps = {
   collapsible: false,
   resizable: true,
   title: '',
-  onCollapse: () => {}
+  onCollapse: () => {},
+  onHeaderMouseDown: () => {},
+  onHeaderMouseUp: () => {},
+  onHeaderClick: () => {}
 };
 
 export default
@@ -67,6 +73,24 @@ class Collapsible extends Component {
 
   handleMotionRest = () => {
     this.setState({ inMotion: false });
+  }
+
+  handleHeaderClick = (e) => {
+    console.log('click!', e);
+    e.stopPropagation();
+    this.props.onHeaderClick(e);
+  }
+
+  handleHeaderMouseDown = (e) => {
+    console.log('down!', e);
+    e.stopPropagation();
+    this.props.onHeaderMouseDown(e);
+  }
+
+  handleHeaderMouseUp = (e) => {
+    console.log('up!', e);
+    e.stopPropagation();
+    this.props.onHeaderMouseUp(e);
   }
 
   render() {
@@ -117,8 +141,16 @@ class Collapsible extends Component {
 
     let content = (
       <div className={`oc-collapsible ${className}`}>
-        <div className={`oc-collapsible__header`}>
-          <div className={`oc-collapsible__header-title-container`} title={title}>
+        <div
+          className={`oc-collapsible__header`}
+        >
+          <div
+            className={`oc-collapsible__header-title-container`}
+            title={title}
+            onMouseDown={this.handleHeaderMouseDown}
+            onMouseUp={this.handleHeaderMouseUp}
+            onClick={this.handleHeaderClick}
+          >
             <h5 className={`oc-collapsible__header-title-text`}>{title}</h5>
           </div>
           {collapsibleButton}
