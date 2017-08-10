@@ -29,9 +29,7 @@ const propTypes = {
   resizable: Types.bool,
   title: Types.string,
   onCollapse: Types.func,
-  onHeaderMouseDown: Types.func,
-  onHeaderMouseUp: Types.func,
-  onHeaderClick: Types.func
+  draggableHandle: Types.string
 };
 const defaultProps = {
   className: '',
@@ -40,9 +38,7 @@ const defaultProps = {
   resizable: true,
   title: '',
   onCollapse: () => {},
-  onHeaderMouseDown: () => {},
-  onHeaderMouseUp: () => {},
-  onHeaderClick: () => {}
+  draggableHandle: ''
 };
 
 export default
@@ -75,30 +71,13 @@ class Collapsible extends Component {
     this.setState({ inMotion: false });
   }
 
-  handleHeaderClick = (e) => {
-    console.log('click!', e);
-    e.stopPropagation();
-    this.props.onHeaderClick(e);
-  }
-
-  handleHeaderMouseDown = (e) => {
-    console.log('down!', e);
-    e.stopPropagation();
-    this.props.onHeaderMouseDown(e);
-  }
-
-  handleHeaderMouseUp = (e) => {
-    console.log('up!', e);
-    e.stopPropagation();
-    this.props.onHeaderMouseUp(e);
-  }
-
   render() {
     let {
       className,
       collapsed,
       title,
-      resizable
+      resizable,
+      draggableHandle
     } = this.props;
 
     let { childHeight, inMotion } = this.state;
@@ -145,11 +124,8 @@ class Collapsible extends Component {
           className={`oc-collapsible__header`}
         >
           <div
-            className={`oc-collapsible__header-title-container`}
+            className={`oc-collapsible__header-title-container ${draggableHandle}`}
             title={title}
-            onMouseDown={this.handleHeaderMouseDown}
-            onMouseUp={this.handleHeaderMouseUp}
-            onClick={this.handleHeaderClick}
           >
             <h5 className={`oc-collapsible__header-title-text`}>{title}</h5>
           </div>

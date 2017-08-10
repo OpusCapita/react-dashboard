@@ -14,14 +14,16 @@ const propTypes = {
   widgetMargin: Types.arrayOf(Types.number),
   children: Types.arrayOf(Types.node),
   cols: Types.object,
-  breakpoints: Types.object
+  breakpoints: Types.object,
+  draggableHandle: Types.string
 };
 const defaultProps = {
   rowHeight: 48,
   widgetMargin: [12, 12], // please use even numbers. Ther is number round fault
   children: [],
   cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
-  breakpoints: { lg: 1200, md: 992, sm: 768, xs: 576, xxs: 0 }
+  breakpoints: { lg: 1200, md: 992, sm: 768, xs: 576, xxs: 0 },
+  draggableHandle: 'oc-dashboard__draggable-handle'
 };
 
 class Dashboard extends Component {
@@ -193,7 +195,8 @@ class Dashboard extends Component {
       cols,
       rowHeight,
       size,
-      widgetMargin
+      widgetMargin,
+      draggableHandle
     } = this.props;
 
     let {
@@ -221,7 +224,8 @@ class Dashboard extends Component {
               style: { maxHeight },
 
               onMount: this.handleWidgetMount.bind(this),
-              onCollapse: this.handleWidgetCollapse.bind(this)
+              onCollapse: this.handleWidgetCollapse.bind(this),
+              draggableHandle
             }
           }}
         </div>
@@ -233,6 +237,7 @@ class Dashboard extends Component {
         <ReactGridLayout
           isDraggable={true}
           isResizable={true}
+          draggableHandle={`.${draggableHandle}`}
           layout={layout}
           margin={widgetMargin}
           rowHeight={rowHeight}
