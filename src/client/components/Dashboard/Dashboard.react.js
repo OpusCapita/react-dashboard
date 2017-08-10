@@ -36,7 +36,6 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    console.log(this.state.initialWidgetsProps);
     // this.handleWidthChange(this.props.size.width);
 
     // let nextLayout = this.generateLayout(this.state.layout);
@@ -152,7 +151,7 @@ class Dashboard extends Component {
     return widgetProps;
   }
 
-  handleResize(layout, oldItem, newItem, placeholder, e, element) {
+  handleResizeStop(layout, oldItem, newItem, placeholder, e, element) {
     let state = this.state;
 
     state = this.setWidgetProp(state, newItem.i, 'w', newItem.w);
@@ -162,17 +161,17 @@ class Dashboard extends Component {
     this.setState(state);
   }
 
-  handleDrag(layout, oldItem, newItem, placeholder, e, element) {
+  handleDragStop(layout, oldItem, newItem, placeholder, e, element) {
     let state = this.state;
 
     state = this.setWidgetProp(state, newItem.i, 'x', newItem.x);
     state = this.setWidgetProp(state, newItem.i, 'y', newItem.y);
 
+
     this.setState(state);
   }
 
   handleLayoutChange(layout) {
-    // this.setState({ layout });
     // this.setState({ layout: this.generateLayout({ ...this.state, layout }) });
   }
 
@@ -237,8 +236,8 @@ class Dashboard extends Component {
           autosize={false}
           width={size.width}
           onLayoutChange={this.handleLayoutChange.bind(this)}
-          onResize={this.handleResize.bind(this)}
-          onDrag={this.handleDrag.bind(this)}
+          onResizeStop={this.handleResizeStop.bind(this)}
+          onDragStop={this.handleDragStop.bind(this)}
         >
           {wrappedWidgets}
         </ReactGridLayout>
