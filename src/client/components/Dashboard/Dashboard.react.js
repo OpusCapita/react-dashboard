@@ -153,10 +153,14 @@ class Dashboard extends Component {
 
   handleResizeStop(layout, oldItem, newItem, placeholder, e, element) {
     let state = this.state;
+    let collapsed = !!(newItem.h <= 1);
 
+    state = this.setWidgetProp(state, newItem.i, 'collapsed', collapsed);
     state = this.setWidgetProp(state, newItem.i, 'w', newItem.w);
-    state = this.setWidgetProp(state, newItem.i, 'h', newItem.h);
-    state = this.setWidgetProp(state, newItem.i, 'collapsed', !!(newItem.h <= 1));
+
+    if(!collapsed) {
+      state = this.setWidgetProp(state, newItem.i, 'h', newItem.h);
+    }
 
     this.setState(state);
   }
