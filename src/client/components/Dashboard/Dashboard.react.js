@@ -176,7 +176,7 @@ class Dashboard extends Component {
   }
 
   handleLayoutChange(layout) {
-    // this.setState({ layout: this.generateLayout({ ...this.state, layout }) });
+    // this.setState({ layout });
   }
 
   handleWidgetCollapse(widgetId) {
