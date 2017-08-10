@@ -2,7 +2,7 @@
 
 # React Dashboard
 
-## !!! Work in progress! There are several bugs now. See [issues](https://github.com/OpusCapita/react-dashboard/issues).
+## !!! Work in progress. There are several bugs now. See [issues](https://github.com/OpusCapita/react-dashboard/issues).
 
 Draggable and resizable dashboard component.
 
