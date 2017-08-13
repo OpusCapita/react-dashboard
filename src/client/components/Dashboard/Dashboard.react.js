@@ -28,7 +28,7 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collapsedWidgets: [],
+      allWidgetAreMounted: false,
       layout: [],
       initialWidgetsProps: {},
       modifiedWidgetsProps: {}
@@ -53,6 +53,7 @@ class Dashboard extends Component {
   }
 
   generateLayout(state) {
+    console.log('layout');
     let { initialWidgetsProps } = state;
     let layout = Object.keys(initialWidgetsProps).map(widgetId => {
       let collapsed = this.getWidgetProp(state, widgetId, 'collapsed');
@@ -61,13 +62,18 @@ class Dashboard extends Component {
       let maxW = this.getWidgetProp(state, widgetId, 'maxW');
       let minH = this.getWidgetProp(state, widgetId, 'minH');
       let maxH = this.getWidgetProp(state, widgetId, 'maxH');
+      let x = this.getWidgetProp(state, widgetId, 'x');
+      x = typeof x === 'undefined' ? 0 : x;
+
+      let y = this.getWidgetProp(state, widgetId, 'y');
+      y = typeof y === 'undefined' ? 0 : y;
 
       let nextWidgetLayout = {
         i: widgetId,
         h,
         w: this.getWidgetProp(state, widgetId, 'w'),
-        x: this.getWidgetProp(state, widgetId, 'x') || 0,
-        y: this.getWidgetProp(state, widgetId, 'y') || 0,
+        x,
+        y,
         minW: (typeof minW === 'undefined' || minW === null) ? undefined : minW,
         maxW: (typeof maxW === 'undefined' || minW === null) ? undefined : minW,
         minH: (typeof minH === 'undefined' || minW === null) ? undefined : minW,
@@ -89,11 +95,17 @@ class Dashboard extends Component {
       let initialWidgetsProps = { ...prevState.initialWidgetsProps, [options.id]: options };
       let layout = this.generateLayout({ ...prevState, initialWidgetsProps });
 
-      return ({
+      let state = {
         ...prevState,
         initialWidgetsProps,
         layout
+      };
+
+      state.allWidgetAreMounted = this.props.children.every(child => {
+        return Object.keys(state.initialWidgetsProps).indexOf(child.props.id) !== -1;
       });
+
+      return state;
     });
   }
 
@@ -172,6 +184,8 @@ class Dashboard extends Component {
   }
 
   handleLayoutChange(layout) {
+    console.log(layout);
+    // console.log(JSON.stringify(layout, null , 4));
     // this.setState({ layout: this.generateLayout({ ...this.state, layout }) });
   }
 
@@ -193,7 +207,6 @@ class Dashboard extends Component {
     } = this.props;
 
     let {
-      collapsedWidgets,
       layout,
       initialWidgetsProps,
       modifiedWidgetsProps
