@@ -28,7 +28,8 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      allWidgetAreMounted: false,
+      allWidgetsMounted: false,
+      widgetPositionsInited: false,
       layout: [],
       initialWidgetsProps: {},
       modifiedWidgetsProps: {}
@@ -53,7 +54,6 @@ class Dashboard extends Component {
   }
 
   generateLayout(state) {
-    console.log('layout');
     let { initialWidgetsProps } = state;
     let layout = Object.keys(initialWidgetsProps).map(widgetId => {
       let collapsed = this.getWidgetProp(state, widgetId, 'collapsed');
@@ -101,7 +101,7 @@ class Dashboard extends Component {
         layout
       };
 
-      state.allWidgetAreMounted = this.props.children.every(child => {
+      state.allWidgetsMounted = this.props.children.every(child => {
         return Object.keys(state.initialWidgetsProps).indexOf(child.props.id) !== -1;
       });
 
@@ -184,9 +184,18 @@ class Dashboard extends Component {
   }
 
   handleLayoutChange(layout) {
-    console.log(layout);
-    // console.log(JSON.stringify(layout, null , 4));
-    // this.setState({ layout: this.generateLayout({ ...this.state, layout }) });
+    let { allWidgetsMounted, widgetPositionsInited } = this.state;
+
+    if (allWidgetsMounted && !widgetPositionsInited) {
+      let state = layout.reduce((accumState, widget) => {
+        accumState = this.setWidgetProp(accumState, widget.i, 'x', widget.x);
+        accumState = this.setWidgetProp(accumState, widget.i, 'y', widget.y);
+        return accumState;
+      }, this.state);
+
+      this.setState({ ...state, widgetPositionsInited: true });
+    }
+
   }
 
   handleWidgetCollapse(widgetId) {
