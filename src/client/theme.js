@@ -4,7 +4,7 @@ export default {
   'success-color': '#3AA57B',
   'attention-color': '#FECA1D',
   'error-color': '#DD2515',
-  'text-color': '#67707C',
+  'text-color': '#333',
   'links-color': '#006070',
   'background-gray-color': '#D3DADE'
 };
