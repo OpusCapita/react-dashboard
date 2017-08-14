@@ -20,6 +20,9 @@ Collapsible is component which
     title="Approval status"
     collapsed={_scope.state.collapsed}
     onCollapse={_scope.toggleCollapse.bind(_scope)}
+    onHeaderMouseDown={() => console.log('Header mouse down')}
+    onHeaderMouseUp={() => console.log('Header mouse up')}
+    onHeaderClick={() => console.log('Header click')}
   >
     <div>
       <ul>

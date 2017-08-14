@@ -28,7 +28,8 @@ const propTypes = {
   collapsible: Types.bool,
   resizable: Types.bool,
   title: Types.string,
-  onCollapse: Types.func
+  onCollapse: Types.func,
+  draggableHandle: Types.string
 };
 const defaultProps = {
   className: '',
@@ -36,7 +37,8 @@ const defaultProps = {
   collapsible: false,
   resizable: true,
   title: '',
-  onCollapse: () => {}
+  onCollapse: () => {},
+  draggableHandle: ''
 };
 
 export default
@@ -74,7 +76,8 @@ class Collapsible extends Component {
       className,
       collapsed,
       title,
-      resizable
+      resizable,
+      draggableHandle
     } = this.props;
 
     let { childHeight, inMotion } = this.state;
@@ -117,8 +120,13 @@ class Collapsible extends Component {
 
     let content = (
       <div className={`oc-collapsible ${className}`}>
-        <div className={`oc-collapsible__header`}>
-          <div className={`oc-collapsible__header-title-container`} title={title}>
+        <div
+          className={`oc-collapsible__header`}
+        >
+          <div
+            className={`oc-collapsible__header-title-container ${draggableHandle}`}
+            title={title}
+          >
             <h5 className={`oc-collapsible__header-title-text`}>{title}</h5>
           </div>
           {collapsibleButton}

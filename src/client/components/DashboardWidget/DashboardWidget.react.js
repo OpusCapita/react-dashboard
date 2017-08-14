@@ -17,7 +17,8 @@ const propTypes = {
   style: Types.object,
   onMount: Types.func,
   onUnmount: Types.func,
-  onCollapse: Types.func
+  onCollapse: Types.func,
+  draggableHandle: Types.string
 };
 const defaultProps = {
   collapsible: true,
@@ -34,7 +35,8 @@ const defaultProps = {
   style: {},
   onMount: () => {},
   onUnmount: () => {},
-  onCollapse: () => {}
+  onCollapse: () => {},
+  draggableHandle: ''
 };
 
 export default
@@ -75,7 +77,8 @@ class DashboardWidget extends Component {
       minH,
       className,
       style,
-      onCollapse
+      onCollapse,
+      draggableHandle
     } = this.props;
 
     let child = React.Children.only(this.props.children);
@@ -91,7 +94,8 @@ class DashboardWidget extends Component {
             ...child.props,
             collapsible,
             collapsed,
-            onCollapse: () => onCollapse(id)
+            onCollapse: () => onCollapse(id),
+            draggableHandle
           }
         }}
       </div>

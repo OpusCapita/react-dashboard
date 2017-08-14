@@ -16,6 +16,7 @@
     "lib",
     "README.md"
   ],
+  "repository": "OpusCapita/react-dashboard",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
