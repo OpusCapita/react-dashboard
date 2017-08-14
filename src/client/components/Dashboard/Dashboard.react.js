@@ -39,10 +39,7 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    // this.handleWidthChange(this.props.size.width);
-
-    // let nextLayout = this.generateLayout(this.state.layout);
-    // this.setState({ layout: nextLayout });
+    this.handleWidthChange(this.props.size.width);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -52,7 +49,22 @@ class Dashboard extends Component {
   }
 
   handleWidthChange(width) {
-    this.setColumnsCount(width);
+    let { cols, breakpoints } = this.props;
+
+    let breakpointKey = this.getBreakpointKey(width, cols, breakpoints);
+    let colsCount = cols[breakpointKey];
+
+    this.setState({ colsCount });
+  }
+
+  getBreakpointKey(width, cols, breakpoints) {
+    let breakpointKey = Object.keys(breakpoints).reduce((prevCandidateKey, candidateKey) => {
+      let prevCandidateWidth = breakpoints[prevCandidateKey];
+      let candidateWidth = breakpoints[candidateKey];
+      return width >= prevCandidateWidth ? prevCandidateKey : candidateKey;
+    }, 'lg');
+
+    return breakpointKey;
   }
 
   generateLayout(state) {
@@ -87,10 +99,6 @@ class Dashboard extends Component {
     });
 
     return layout;
-  }
-
-  setColumnsCount(width) {
-
   }
 
   handleWidgetMount(options) {
@@ -230,7 +238,8 @@ class Dashboard extends Component {
     let {
       layout,
       initialWidgetsProps,
-      modifiedWidgetsProps
+      modifiedWidgetsProps,
+      colsCount
     } = this.state;
 
     let wrappedWidgets = children.map((widget, i) => {
@@ -268,7 +277,7 @@ class Dashboard extends Component {
           layout={layout}
           margin={widgetMargin}
           rowHeight={rowHeight}
-          cols={12}
+          cols={colsCount}
           autosize={false}
           width={size.width}
           onLayoutChange={this.handleLayoutChange.bind(this)}
