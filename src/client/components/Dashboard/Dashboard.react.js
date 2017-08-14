@@ -64,6 +64,7 @@ class Dashboard extends Component {
       let maxW = this.getWidgetProp(state, widgetId, 'maxW');
       let minH = this.getWidgetProp(state, widgetId, 'minH');
       let maxH = this.getWidgetProp(state, widgetId, 'maxH');
+
       let x = this.getWidgetProp(state, widgetId, 'x');
       x = typeof x === 'undefined' ? 0 : x;
 
@@ -166,8 +167,13 @@ class Dashboard extends Component {
   }
 
   handleResizeStop(layout, oldItem, newItem, placeholder, e, element) {
-    let state = this.state;
     let collapsed = !!(newItem.h <= 1);
+
+    let state = layout.reduce((accumState, widget) => {
+      accumState = this.setWidgetProp(accumState, widget.i, 'x', widget.x);
+      accumState = this.setWidgetProp(accumState, widget.i, 'y', widget.y);
+      return accumState;
+    }, this.state);
 
     state = this.setWidgetProp(state, newItem.i, 'collapsed', collapsed);
     state = this.setWidgetProp(state, newItem.i, 'w', newItem.w);
@@ -180,11 +186,11 @@ class Dashboard extends Component {
   }
 
   handleDragStop(layout, oldItem, newItem, placeholder, e, element) {
-    let state = this.state;
-
-    state = this.setWidgetProp(state, newItem.i, 'x', newItem.x);
-    state = this.setWidgetProp(state, newItem.i, 'y', newItem.y);
-
+    let state = layout.reduce((accumState, widget) => {
+      accumState = this.setWidgetProp(accumState, widget.i, 'x', widget.x);
+      accumState = this.setWidgetProp(accumState, widget.i, 'y', widget.y);
+      return accumState;
+    }, this.state);
 
     this.setState(state);
   }
