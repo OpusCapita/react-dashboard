@@ -1,4 +1,12 @@
 
+Release 0.0.3 Thu Aug 17 2017 16:09:19 GMT+0300 (+03)
+=======================================================
+
+ - Merge branch 'master' of opuscapita.github.com:OpusCapita/react-dashboard (cd2568f 90a6a43, Kirill Volkovich <volkovich@scand.com>)
+ - Fix - Dashboard fails if have one children (Kirill Volkovich <volkovich@scand.com>, Thu Aug 17 16:08:02 2017 +0300)
+ - Update README.md (Kirill Volkovich <kvolkovich-sc@users.noreply.github.com>, Thu Aug 17 11:06:34 2017 +0300)
+ - Updating to a version to  0.0.3 (Kirill Volkovich <volkovich@scand.com>, Thu Aug 17 10:51:51 2017 +0300)
+
 Release 0.0.2 Thu Aug 17 2017 10:51:32 GMT+0300 (+03)
 =======================================================
 
