@@ -15,7 +15,7 @@ import { Dashboard, DashboardWidget, Collapsible } from '@opuscapita/react-dashb
 
 Then see Dashboard usage example. (More detailed documentation coming soon)
 
-[Dashboard example](https://opuscapita.github.io/react-dashboard/?currentComponentId=%40opuscapita%2Freact-dashboard%2F0.0.3%2FDashboard&maxContainerWidth=100%25&showSidebar=true)
+[Dashboard example](https://opuscapita.github.io/react-dashboard/?currentComponentId=%40opuscapita%2Freact-dashboard%2F0.0.4%2FDashboard&maxContainerWidth=100%25&showSidebar=true)
 
 > Demo powered by [React Showroom](https://github.com/OpusCapita/react-showroom-client)
 
