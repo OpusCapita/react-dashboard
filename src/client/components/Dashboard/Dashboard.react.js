@@ -102,6 +102,8 @@ class Dashboard extends Component {
   }
 
   handleWidgetMount(options) {
+    let { children } = this.props;
+
     this.setState((prevState) => {
       let initialWidgetsProps = { ...prevState.initialWidgetsProps, [options.id]: options };
       let layout = this.generateLayout({ ...prevState, initialWidgetsProps });
@@ -112,7 +114,7 @@ class Dashboard extends Component {
         layout
       };
 
-      state.allWidgetsMounted = this.props.children.every(child => {
+      state.allWidgetsMounted = Children.toArray(children).every(child => {
         return Object.keys(state.initialWidgetsProps).indexOf(child.props.id) !== -1;
       });
 
