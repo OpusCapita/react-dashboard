@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Children } from 'react';
 import Types from 'prop-types';
 import './Dashboard.less';
 import AttachementsList from '../AttachementsList';
@@ -242,7 +242,7 @@ class Dashboard extends Component {
       colsCount
     } = this.state;
 
-    let wrappedWidgets = children.map((widget, i) => {
+    let wrappedWidgets = Children.toArray(children).map((widget, i) => {
       let mergedProps = initialWidgetsProps[widget.props.id] ? this.getWidgetProps(this.state, widget.props.id) : widget.props;
       let h = this.getWidgetProp(this.state, widget.props.id, 'h');
       let maxHeight = `${h * (rowHeight + widgetMargin[1]) - widgetMargin[1]}px`;
