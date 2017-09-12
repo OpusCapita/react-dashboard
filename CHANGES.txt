@@ -1,4 +1,10 @@
 
+Release 0.0.5 Tue Sep 12 2017 18:13:46 GMT+0300 (+03)
+=======================================================
+
+ - Update dependencies (Kirill Volkovich <kirill.volkovich@jcatalog.com>, Tue Sep 12 18:13:26 2017 +0300)
+ - Updating to a version to  0.0.5 (Kirill Volkovich <volkovich@scand.com>, Thu Aug 17 17:07:52 2017 +0300)
+
 Release 0.0.4 Thu Aug 17 2017 17:07:33 GMT+0300 (+03)
 =======================================================
 
