@@ -25,20 +25,20 @@ module.exports = {
       'NODE_ENV': '"production"'
     }),
   ],
-  // externals: {
-  //   react: {
-  //     root: 'React',
-  //     commonjs2: 'react',
-  //     commonjs: 'react',
-  //     amd: 'react'
-  //   },
-  //   'react-dom': {
-  //     root: 'ReactDOM',
-  //     commonjs2: 'react-dom',
-  //     commonjs: 'react-dom',
-  //     amd: 'react-dom'
-  //   }
-  // },
+  externals: {
+    react: {
+      root: 'React',
+      commonjs2: 'react',
+      commonjs: 'react',
+      amd: 'react'
+    },
+    'react-dom': {
+      root: 'ReactDOM',
+      commonjs2: 'react-dom',
+      commonjs: 'react-dom',
+      amd: 'react-dom'
+    }
+  },
   resolve: {
     modules: ['node_modules'],
     extensions: ['.json', '.js']
