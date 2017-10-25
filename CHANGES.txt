@@ -1,4 +1,10 @@
 
+Release 0.0.6 Wed Oct 25 2017 13:25:48 GMT+0300 (+03)
+=======================================================
+
+ - Add "react*" to externals (Kirill Volkovich <kirill.volkovich@jcatalog.com>, Wed Oct 25 13:24:46 2017 +0300)
+ - Updating to a version to  0.0.6 (Kirill Volkovich <kirill.volkovich@jcatalog.com>, Tue Sep 12 18:14:07 2017 +0300)
+
 Release 0.0.5 Tue Sep 12 2017 18:13:46 GMT+0300 (+03)
 =======================================================
 
