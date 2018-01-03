@@ -1,4 +1,5 @@
 *.log
+*.lock
 *.iml
 .idea
 tmp
