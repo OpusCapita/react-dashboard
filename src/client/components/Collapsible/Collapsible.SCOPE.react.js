@@ -5,9 +5,6 @@
 
 import React, { Component, PropTypes } from 'react';
 import { showroomScopeDecorator } from '@opuscapita/react-showroom-client';
-import { ThemeProvider } from '@opuscapita/react-theming';
-import theme from '../../theme';
-
 
 @showroomScopeDecorator
 export default
@@ -26,9 +23,7 @@ class CollapsibleScope extends Component {
   render() {
     return (
       <div>
-        <ThemeProvider theme={theme}>
-          {this._renderChildren()}
-        </ThemeProvider>
+        {this._renderChildren()}
       </div>
     );
   }

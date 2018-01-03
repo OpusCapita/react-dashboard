@@ -5,12 +5,10 @@
 
 import React, { Component, PropTypes } from 'react';
 import { showroomScopeDecorator } from '@opuscapita/react-showroom-client';
-import { ThemeProvider } from '@opuscapita/react-theming';
 import Collapsible from '../Collapsible';
 import DashboardWidget from '../DashboardWidget';
 import AttachementsList from '../AttachementsList';
 import demoData from './demo-data';
-import theme from '../../theme';
 
 window.Collapsible = Collapsible;
 window.DashboardWidget = DashboardWidget;
@@ -29,9 +27,7 @@ class DashboardScope extends Component {
   render() {
     return (
       <div>
-        <ThemeProvider theme={theme}>
-          {this._renderChildren()}
-        </ThemeProvider>
+        {this._renderChildren()}
       </div>
     );
   }

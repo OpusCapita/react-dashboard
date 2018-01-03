@@ -75,7 +75,6 @@
   "dependencies": {
     "@opuscapita/react-buttons": "2.0.2",
     "@opuscapita/react-svg": "2.0.0",
-    "@opuscapita/react-theming": "^0.0.3",
     "prop-types": "^15.5.10",
     "react-grid-layout": "^0.14.7",
     "react-motion": "^0.5.0",
