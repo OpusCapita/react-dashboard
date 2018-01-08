@@ -1,4 +1,15 @@
 
+Release 1.0.0-beta.0 Mon Jan 08 2018 13:32:36 GMT+0300 (+03)
+=======================================================
+
+ - Merge pull request #12 from OpusCapita/drop-react-15-support
+    
+    Drop react 15 support (8d2bbc6 4074ce9, Kirill Volkovich <kvolkovich-sc@users.noreply.github.com>)
+ - #11 Droped React v. 15.4.x support, use v. "^15.6.2 || ^16.2.0" as peer dependency (Kirill Volkovich <kirill.volkovich@opuscapita.com>, Mon Jan 8 13:30:58 2018 +0300)
+ - Add "yarn.lock" to ".gitignore" (Kirill Volkovich <kirill.volkovich@opuscapita.com>, Wed Jan 3 11:14:22 2018 +0300)
+ - Remove "@opuscapita/react-theming" usage (Kirill Volkovich <kirill.volkovich@opuscapita.com>, Wed Jan 3 11:12:26 2018 +0300)
+ - Updating to a version to  0.0.7 (Kirill Volkovich <kirill.volkovich@jcatalog.com>, Wed Oct 25 13:26:06 2017 +0300)
+
 Release 0.0.6 Wed Oct 25 2017 13:25:48 GMT+0300 (+03)
 =======================================================
 
