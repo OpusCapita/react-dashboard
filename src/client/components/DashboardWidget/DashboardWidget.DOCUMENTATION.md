@@ -12,7 +12,9 @@ DashboardWidget is
 ### Code Example
 
 ```
-<DashboardWidget />
+<DashboardWidget>
+  <div>Hello</div>
+</DashboardWidget>
 ```
 
 ### Component Name

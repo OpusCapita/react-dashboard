@@ -3,11 +3,9 @@
    https://github.com/OpusCapita/react-showroom-client/blob/master/docs/scope-component.md
 */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { showroomScopeDecorator } from '@opuscapita/react-showroom-client';
-import { ThemeProvider } from '@opuscapita/react-theming';
-import theme from '../../theme';
-
 
 @showroomScopeDecorator
 export default
@@ -26,17 +24,8 @@ class CollapsibleScope extends Component {
   render() {
     return (
       <div>
-        <ThemeProvider theme={theme}>
-          {this._renderChildren()}
-        </ThemeProvider>
+        {this._renderChildren()}
       </div>
     );
   }
 }
-
-CollapsibleScope.contextTypes = {
-  i18n: PropTypes.object
-};
-CollapsibleScope.childContextTypes = {
-  i18n: PropTypes.object
-};
