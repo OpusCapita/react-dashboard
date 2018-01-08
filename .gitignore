@@ -1,6 +1,7 @@
 *.log
 *.lock
 *.iml
+package-lock.json
 .idea
 tmp
 npm-debug.log

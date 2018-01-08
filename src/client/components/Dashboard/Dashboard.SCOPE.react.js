@@ -3,7 +3,8 @@
    https://github.com/OpusCapita/react-showroom-client/blob/master/docs/scope-component.md
 */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { showroomScopeDecorator } from '@opuscapita/react-showroom-client';
 import Collapsible from '../Collapsible';
 import DashboardWidget from '../DashboardWidget';
@@ -32,10 +33,3 @@ class DashboardScope extends Component {
     );
   }
 }
-
-DashboardScope.contextTypes = {
-  i18n: PropTypes.object
-};
-DashboardScope.childContextTypes = {
-  i18n: PropTypes.object
-};

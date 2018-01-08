@@ -3,7 +3,8 @@
    https://github.com/OpusCapita/react-showroom-client/blob/master/docs/scope-component.md
 */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { showroomScopeDecorator } from '@opuscapita/react-showroom-client';
 
 @showroomScopeDecorator
@@ -28,10 +29,3 @@ class CollapsibleScope extends Component {
     );
   }
 }
-
-CollapsibleScope.contextTypes = {
-  i18n: PropTypes.object
-};
-CollapsibleScope.childContextTypes = {
-  i18n: PropTypes.object
-};
