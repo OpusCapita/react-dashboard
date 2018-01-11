@@ -3,14 +3,13 @@
    https://github.com/OpusCapita/react-showroom-client/blob/master/docs/scope-component.md
 */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { showroomScopeDecorator } from '@opuscapita/react-showroom-client';
-import { ThemeProvider } from '@opuscapita/react-theming';
 import Collapsible from '../Collapsible';
 import DashboardWidget from '../DashboardWidget';
 import AttachementsList from '../AttachementsList';
 import demoData from './demo-data';
-import theme from '../../theme';
 
 window.Collapsible = Collapsible;
 window.DashboardWidget = DashboardWidget;
@@ -29,17 +28,8 @@ class DashboardScope extends Component {
   render() {
     return (
       <div>
-        <ThemeProvider theme={theme}>
-          {this._renderChildren()}
-        </ThemeProvider>
+        {this._renderChildren()}
       </div>
     );
   }
 }
-
-DashboardScope.contextTypes = {
-  i18n: PropTypes.object
-};
-DashboardScope.childContextTypes = {
-  i18n: PropTypes.object
-};

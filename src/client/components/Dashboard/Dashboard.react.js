@@ -75,16 +75,16 @@ class Dashboard extends PureComponent {
   onChangeLayout = layout => (this.state.allWidgetsMounted && !isEqual(layout, this.state.layout)) &&
     this.props.onChangeLayout(layout);
 
-  getBreakpointKey(width, cols, breakpoints) {
+  getBreakpointKey = (width, cols, breakpoints) => {
     let breakpointKey = Object.keys(breakpoints).reduce((prevCandidateKey, candidateKey) => {
       let prevCandidateWidth = breakpoints[prevCandidateKey];
       return width >= prevCandidateWidth ? prevCandidateKey : candidateKey;
     }, 'lg');
 
     return breakpointKey;
-  }
+  };
 
-  generateLayout(state, props = this.props) {
+  generateLayout = (state, props = this.props) => {
     const { initialWidgetsProps } = state;
     const layout = Object.keys(initialWidgetsProps).map(widgetId => {
       const collapsed = this.getWidgetProp(state, widgetId, 'collapsed');
@@ -129,13 +129,16 @@ class Dashboard extends PureComponent {
     });
 
     return layout;
-  }
+  };
 
-  handleWidgetMount(options) {
+  handleWidgetMount = options => {
     let { children } = this.props;
 
-    this.setState((prevState) => {
-      let initialWidgetsProps = { ...prevState.initialWidgetsProps, [options.id]: options };
+    this.setState(prevState => {
+      let initialWidgetsProps = {
+        ...prevState.initialWidgetsProps,
+        [options.id]: options
+      };
       let layout = this.generateLayout({ ...prevState, initialWidgetsProps });
 
       let state = {
@@ -145,14 +148,16 @@ class Dashboard extends PureComponent {
       };
 
       state.allWidgetsMounted = Children.toArray(children).every(child => {
-        return Object.keys(state.initialWidgetsProps).indexOf(child.props.id) !== -1;
+        return (
+          Object.keys(state.initialWidgetsProps).indexOf(child.props.id) !== -1
+        );
       });
 
       return state;
     });
-  }
+  };
 
-  setWidgetProp(state, widgetId, propKey, propValue) {
+  setWidgetProp = (state, widgetId, propKey, propValue) => {
     let widgetProps = state.modifiedWidgetsProps[widgetId] || {};
     let modifiedWidgetsProps = {
       ...state.modifiedWidgetsProps,
@@ -162,90 +167,92 @@ class Dashboard extends PureComponent {
       }
     };
 
-    let nextState = ({
+    let nextState = {
       ...state,
       modifiedWidgetsProps
-    });
+    };
 
     let layout = this.generateLayout(nextState);
 
-    return ({ ...nextState, layout });
-  }
+    return { ...nextState, layout };
+  };
 
-  getWidgetProp(state, widgetId, propKey) {
+  getWidgetProp = (state, widgetId, propKey) => {
     let { initialWidgetsProps, modifiedWidgetsProps } = state;
 
-    if (typeof initialWidgetsProps[widgetId] === 'undefined') {
+    if (typeof initialWidgetsProps[widgetId] === "undefined") {
       return;
     }
 
-    let propModified = (
+    let propModified =
       modifiedWidgetsProps[widgetId] &&
-      typeof modifiedWidgetsProps[widgetId][propKey] !== 'undefined'
-    );
+      typeof modifiedWidgetsProps[widgetId][propKey] !== "undefined";
 
     let propValue = propModified ?
       modifiedWidgetsProps[widgetId][propKey] :
       initialWidgetsProps[widgetId][propKey];
 
     return propValue;
-  }
+  };
 
-  getWidgetProps(state, widgetId) {
+  getWidgetProps = (state, widgetId) => {
     let { initialWidgetsProps } = state;
 
     if (!Object.keys(initialWidgetsProps).length) {
       return ({ });
     }
 
-    let widgetProps = Object.keys(initialWidgetsProps[widgetId]).reduce((propsAccum, propKey) => {
-      let propValue = this.getWidgetProp(state, widgetId, propKey);
-      return { ...propsAccum, [propKey]: propValue };
-    }, {});
+    let widgetProps = Object.keys(initialWidgetsProps[widgetId]).reduce(
+      (propsAccum, propKey) => {
+        let propValue = this.getWidgetProp(state, widgetId, propKey);
+        return { ...propsAccum, [propKey]: propValue };
+      },
+      {}
+    );
 
     return widgetProps;
-  }
+  };
 
-  handleResizeStop(layout, oldItem, newItem, placeholder, e, element) {
+  handleResizeStop = (layout, oldItem, newItem, placeholder, e, element) => {
     let collapsed = !!(newItem.h <= 1);
 
     let state = layout.reduce((accumState, widget) => {
-      accumState = this.setWidgetProp(accumState, widget.i, 'x', widget.x);
-      accumState = this.setWidgetProp(accumState, widget.i, 'y', widget.y);
+      accumState = this.setWidgetProp(accumState, widget.i, "x", widget.x);
+      accumState = this.setWidgetProp(accumState, widget.i, "y", widget.y);
       return accumState;
     }, this.state);
 
-    state = this.setWidgetProp(state, newItem.i, 'collapsed', collapsed);
-    state = this.setWidgetProp(state, newItem.i, 'w', newItem.w);
+    state = this.setWidgetProp(state, newItem.i, "collapsed", collapsed);
+    state = this.setWidgetProp(state, newItem.i, "w", newItem.w);
 
     if (!collapsed) {
-      state = this.setWidgetProp(state, newItem.i, 'h', newItem.h);
+      state = this.setWidgetProp(state, newItem.i, "h", newItem.h);
     }
 
     this.onChangeLayout(state.layout);
 
     this.setState(state);
-  }
+  };
 
-  handleDragStop(layout, oldItem, newItem, placeholder, e, element) {
+  handleDragStop = (layout, oldItem, newItem, placeholder, e, element) => {
     let state = layout.reduce((accumState, widget) => {
-      accumState = this.setWidgetProp(accumState, widget.i, 'x', widget.x);
-      accumState = this.setWidgetProp(accumState, widget.i, 'y', widget.y);
+      accumState = this.setWidgetProp(accumState, widget.i, "x", widget.x);
+      accumState = this.setWidgetProp(accumState, widget.i, "y", widget.y);
       return accumState;
     }, this.state);
 
     this.onChangeLayout(state.layout);
 
     this.setState(state);
-  }
+  };
 
-  handleLayoutChange(layout) {
+  handleLayoutChange = layout => {
     let { allWidgetsMounted, widgetPositionsInited } = this.state;
 
     if (allWidgetsMounted && !widgetPositionsInited) {
       let state = layout.reduce((accumState, widget) => {
-        accumState = this.setWidgetProp(accumState, widget.i, 'x', widget.x);
-        accumState = this.setWidgetProp(accumState, widget.i, 'y', widget.y);
+        accumState = this.setWidgetProp(accumState, widget.i, "x", widget.x);
+        accumState = this.setWidgetProp(accumState, widget.i, "y", widget.y);
         return accumState;
       }, this.state);
 
@@ -253,9 +260,9 @@ class Dashboard extends PureComponent {
 
       this.setState({ ...state, widgetPositionsInited: true });
     }
-  }
+  };
 
-  handleWidgetCollapse(widgetId) {
+  handleWidgetCollapse = (widgetId) => {
     const collapsed = this.getWidgetProp(this.state, widgetId, 'collapsed');
 
     const state = this.setWidgetProp(this.state, widgetId, 'collapsed', !collapsed);
@@ -263,7 +270,7 @@ class Dashboard extends PureComponent {
     this.onChangeLayout(state.layout);
 
     this.setState(state);
-  }
+  };
 
   render() {
     let {
@@ -296,10 +303,7 @@ class Dashboard extends PureComponent {
       let maxHeight = `${h * (rowHeight + widgetMargin[1]) - widgetMargin[1]}px`;
 
       return (
-        <div
-          key={widget.props.id}
-          className="oc-dashboard__widget"
-        >
+        <div key={widget.props.id} className="oc-dashboard__widget">
           {{
             ...widget,
             props: {
@@ -307,8 +311,8 @@ class Dashboard extends PureComponent {
               ...mergedProps,
               style: { maxHeight },
 
-              onMount: this.handleWidgetMount.bind(this),
-              onCollapse: this.handleWidgetCollapse.bind(this),
+              onMount: this.handleWidgetMount,
+              onCollapse: this.handleWidgetCollapse,
               draggableHandle
             }
           }}
@@ -334,9 +338,9 @@ class Dashboard extends PureComponent {
           rowHeight={rowHeight}
           cols={cols}
           width={size.width}
-          onLayoutChange={this.handleLayoutChange.bind(this)}
-          onResizeStop={this.handleResizeStop.bind(this)}
-          onDragStop={this.handleDragStop.bind(this)}
+          onLayoutChange={this.handleLayoutChange}
+          onResizeStop={this.handleResizeStop}
+          onDragStop={this.handleDragStop}
         >
           {wrappedWidgets}
         </ResponsiveReactGridLayout>
