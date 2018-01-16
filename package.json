@@ -6,6 +6,7 @@
     "npm-build": "webpack --config webpack.production.config.js",
     "link-mode": "webpack --watch --config ./webpack.link.config.js",
     "lint": "eslint src/client",
+    "lint-fix": "eslint src/client --fix",
     "publish-release": "npm run npm-build && npm-publish --release",
     "prepublish": "npm run npm-build",
     "start": "node www/index",
@@ -74,6 +75,7 @@
   "dependencies": {
     "@opuscapita/react-buttons": "4.0.2",
     "@opuscapita/react-svg": "4.0.0",
+    "lodash": "4.17.4",
     "prop-types": "15.5.10",
     "react-grid-layout": "0.14.7",
     "react-motion": "0.5.0",

@@ -18,7 +18,7 @@ class CollapsibleChildren extends Component {
   render() {
     return this.props.children;
   }
-};
+}
 
 CollapsibleChildren = sizeMe({ monitorWidth: false, monitorHeight: true, refreshRate: 128 })(CollapsibleChildren);
 
@@ -52,7 +52,7 @@ class Collapsible extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.collapsed !== nextProps.collapsed) {
+    if (this.props.collapsed !== nextProps.collapsed) {
       this.setState({ inMotion: true });
     }
   }
@@ -89,7 +89,7 @@ class Collapsible extends Component {
           y: collapsed ? spring(0, motionPreset) : spring(1, motionPreset)
         }}
         onRest={this.handleMotionRest}
-        >
+      >
         {style => {
           let finishedMotionMarginTop = collapsed ? childHeight : 0;
           let marginTop = inMotion ? style.x : finishedMotionMarginTop;
@@ -103,12 +103,13 @@ class Collapsible extends Component {
                 opacity: style.y,
                 position: `${position}`
               }}
-              >
+            >
               <CollapsibleChildren onSize={size => this.handleChildHeightChange(size.height)}>
                 {this.props.children}
               </CollapsibleChildren>
             </div>
-          )}}
+          )
+        }}
       </Motion>
     );
 
