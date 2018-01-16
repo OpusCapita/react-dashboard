@@ -1,6 +1,6 @@
 {
   "name": "@opuscapita/react-dashboard",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0",
   "description": "Start write new project with no effort.",
   "scripts": {
     "npm-build": "webpack --config webpack.production.config.js",
