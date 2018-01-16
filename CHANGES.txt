@@ -1,4 +1,16 @@
 
+Release 1.0.0 Tue Jan 16 2018 12:30:03 GMT+0300 (+03)
+=======================================================
+
+ - Set "1.0.0" package version (Kirill Volkovich <kirill.volkovich@opuscapita.com>, Tue Jan 16 12:27:53 2018 +0300)
+ - Merge pull request #13 from OpusCapita/feature/responsive/#8
+    
+    2-state grid with controlled breakpoint and onChangeLayout callback. (7634d6c 647726c, Kirill Volkovich <kvolkovich-sc@users.noreply.github.com>)
+ - Removed yarn.lock from git (Egor Stambakio <stambakio@scand.com>, Thu Jan 11 16:02:07 2018 +0300)
+ - Merged master (b087f31 7634d6c, Egor Stambakio <stambakio@scand.com>)
+ - 2-state grid with controlled breakpoint and onChangeLayout callback. (Egor Stambakio <stambakio@scand.com>, Thu Jan 11 15:45:00 2018 +0300)
+ - Updating to a version to  1.0.0-beta.1 (Kirill Volkovich <kirill.volkovich@opuscapita.com>, Mon Jan 8 13:32:56 2018 +0300)
+
 Release 1.0.0-beta.0 Mon Jan 08 2018 13:32:36 GMT+0300 (+03)
 =======================================================
 
