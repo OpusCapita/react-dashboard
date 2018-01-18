@@ -30,6 +30,8 @@ For example, two adjusted widgets can be described as `x = 0, y = 0, w = 6, h = 
 | ------------------------------ | :---------------------- | ----------------------------------------------------------- |
 | onChangeLayout                 | function (optional)     | Callback of signature <(layout) => any> which gets executed on every layout change.|
 | layout                         | array of objects (optional) | React-grid configs for embedded widgets                 |
+| breakpoints                     | object                  | Object of shape `{ lg: 1200, md: 992, sm: 768, xs: 576, xxs: 0 }` |
+| breakpoint                      | string                  | A screen size breakpoint when layout falls back to a skyscraper. One of 'lg', 'md', 'sm', 'xs', 'xxs'. |
 
 ### Code Example
 
